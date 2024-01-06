@@ -5,10 +5,10 @@
 
 .grid-parent {
   display: grid;
-  grid-template-columns: 45fr 55fr;
+  grid-template-columns: 52fr 48fr;
   /* height: 1000px; */
   /* border: 3px solid rgb(255, 255, 255); */
-  padding: 150px;
+  padding: 150px 150px;
   margin: 0px 50px;
 }
 
@@ -31,7 +31,7 @@ body {
   display: grid;
   grid-column: 2;
   align-content: start;
-  padding: 50px;
+  padding: 45px;
   /* place-content: center; */
   /* justify-self: auto; */
   /* border: 3px solid rgb(0, 175, 12); */
@@ -44,8 +44,7 @@ body {
   width: 150px;
   height: 150px;
   display: block;
-  margin: auto;
-  margin-bottom: 10px;
+  margin: auto auto 10px 40px;
 }
 
 .Name_Banner h1,
@@ -76,7 +75,7 @@ h2 {
   color: #94A3B8;
   margin: 0px 0px 16px 0px;
   padding: 5px;
-  line-height: 1.5;
+  line-height: 1.7;
   font-size: 16px;
   font-weight: normal;
   justify-items: center;
