@@ -5,11 +5,18 @@
 
 .grid-parent {
   display: grid;
-  grid-template-columns: 52fr 48fr;
+  /* grid-template-columns: 52fr 48fr; */
   /* height: 1000px; */
-  /* border: 3px solid rgb(255, 255, 255); */
+  border: 3px solid rgb(255, 255, 255);
   padding: 150px 150px;
   margin: 0px 50px;
+}
+
+.Top {
+  display: grid;
+  border: 3px solid rgb(0, 0, 0);
+  grid-template-columns: 52fr 48fr; /* You can adjust this depending on layout */
+  position: relative; /* This keeps everything within this container */
 }
 
 body {
@@ -23,8 +30,7 @@ body {
   position: fixed;
   grid-template-columns: 40fr 60fr;
   padding-top: 50px;
-  /* border: 1px solid rgb(255, 122, 122); */
-
+  border: 1px solid rgb(255, 122, 122);
 }
 
 .About {
@@ -34,7 +40,7 @@ body {
   padding: 45px;
   /* place-content: center; */
   /* justify-self: auto; */
-  /* border: 3px solid rgb(0, 175, 12); */
+  border: 3px solid rgb(0, 175, 12);
 }
 
 .Name_Banner img {

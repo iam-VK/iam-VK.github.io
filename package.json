@@ -1,0 +1,47 @@
+{
+  "name": "vk-portfolio",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:http": "vite --port 80",
+    "dev:http-ssl": "vite --port 443 --https",
+    "dev:sudo-80": "sudo vite --port 80",
+    "dev:sudo-443": "sudo vite --port 443 --https",
+    "gen-certs": "openssl req -x509 -newkey rsa:4096 -keyout certs/localhost-key.pem -out certs/localhost.pem -days 365 -nodes -subj \"/C=IN/ST=Tamil Nadu/L=Chennai/O=Vishwa Kumar/CN=localhost\"",
+    "setup-https": "mkdir -p certs && npm run gen-certs",
+    "build": "vite build",
+    "preview": "vite preview",
+    "preview:http": "vite preview --port 80",
+    "preview:https": "vite preview --port 443 --https"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^7.1.1",
+    "@mui/material": "^7.1.1",
+    "@types/react-scroll": "^1.8.10",
+    "framer-motion": "^10.18.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0",
+    "react-intersection-observer": "^9.16.0",
+    "react-scroll": "^1.9.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5"
+  }
+}
