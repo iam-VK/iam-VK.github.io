@@ -1,112 +1,60 @@
 import {
   Box,
+  Container,
   Text,
-  VStack,
   HStack,
-  Icon,
+  VStack,
   Link,
+  Icon,
   useColorModeValue,
+  IconButton,
 } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaGraduationCap, FaBriefcase, FaRocket, FaMapMarkerAlt, FaCoffee, FaHeart } from 'react-icons/fa'
-
-const MotionBox = motion(Box)
-
-const socialLinks = [
-  {
-    icon: FaGithub,
-    url: 'https://github.com/yourusername',
-    label: 'GitHub',
-  },
-  {
-    icon: FaLinkedin,
-    url: 'https://linkedin.com/in/yourusername',
-    label: 'LinkedIn',
-  },
-  {
-    icon: FaTwitter,
-    url: 'https://twitter.com/yourusername',
-    label: 'Twitter',
-  },
-  {
-    icon: FaEnvelope,
-    url: 'mailto:your.email@example.com',
-    label: 'Email',
-  },
-]
+import { FaGithub, FaLinkedin, FaEnvelope, FaHeart } from 'react-icons/fa'
 
 export default function Footer() {
+  const textColor = useColorModeValue('text.primary', 'text.inverse')
+  const mutedColor = useColorModeValue('text.secondary', 'text.muted')
+  const borderColor = useColorModeValue('brand.200', 'whiteAlpha.100')
+
   return (
     <Box
-      as="footer"
-      bg="brand.50"
-      borderTop="1px"
-      borderColor="brand.200"
-      py={{ base: 16, md: 20 }}
+      py={10}
+      borderTop="1px solid"
+      borderColor={borderColor}
     >
-      <Box maxW="container.xl" mx="auto" px={{ base: 4, sm: 6, md: 8 }}>
-        <VStack spacing={12}>
-          {/* Quick Facts */}
-          <VStack spacing={6}>
-            <Text fontSize="sm" color="accent.600" fontWeight="500" textTransform="uppercase" letterSpacing="wider">
-              Quick Facts About Me
-            </Text>
+      <Container maxW="container.xl">
+        <VStack spacing={6}>
+          {/* Social Icons */}
+          <HStack spacing={3}>
+            {[
+              { icon: FaGithub, href: 'https://github.com/iam-VK', label: 'GitHub' },
+              { icon: FaLinkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
+              { icon: FaEnvelope, href: 'mailto:vishwakumar.petit@gmail.com', label: 'Email' },
+            ].map((social) => (
+              <IconButton
+                key={social.label}
+                as={Link}
+                href={social.href}
+                isExternal={social.href.startsWith('http')}
+                aria-label={social.label}
+                icon={<Icon as={social.icon} w={4} h={4} />}
+                variant="ghost"
+                size="md"
+                borderRadius="full"
+                color={mutedColor}
+                _hover={{ color: textColor }}
+              />
+            ))}
+          </HStack>
 
-            <VStack spacing={4} align="center" textAlign="center">
-              <VStack spacing={1}>
-                <Icon as={FaGraduationCap} w={4} h={4} color="accent.600" />
-                <Text fontSize="md" color={useColorModeValue('text.primary', 'text.inverse')}>
-                  CS Student graduating in 2025
-                </Text>
-              </VStack>
-
-              <VStack spacing={1}>
-                <Icon as={FaBriefcase} w={4} h={4} color="accent.600" />
-                <Text fontSize="md" color={useColorModeValue('text.primary', 'text.inverse')}>
-                  Currently interning at Ramco Systems
-                </Text>
-              </VStack>
-
-              <VStack spacing={1}>
-                <Icon as={FaRocket} w={4} h={4} color="accent.600" />
-                <Text fontSize="md" color={useColorModeValue('text.primary', 'text.inverse')}>
-                  Passionate about AI & Backend Development
-                </Text>
-              </VStack>
-
-              <VStack spacing={1}>
-                <Icon as={FaMapMarkerAlt} w={4} h={4} color="accent.600" />
-                <Text fontSize="md" color={useColorModeValue('text.primary', 'text.inverse')}>
-                  Based in Chennai, Tamil Nadu
-                </Text>
-              </VStack>
-            </VStack>
-          </VStack>
-
-          {/* Footer Bottom */}
-          <VStack spacing={4} textAlign="center">
-            <VStack spacing={2}>
-              <HStack spacing={1} justify="center">
-                <Text fontSize="sm" color={useColorModeValue('text.secondary', 'text.inverse')}>
-                  Made with
-                </Text>
-                <Icon as={FaHeart} w={3} h={3} color="accent.500" />
-                <Text fontSize="sm" color={useColorModeValue('text.secondary', 'text.inverse')}>
-                  and lots of
-                </Text>
-                <Icon as={FaCoffee} w={3} h={3} color="accent.300" />
-              </HStack>
-              <Text fontSize="sm" color={useColorModeValue('text.tertiary', 'text.inverse')}>
-                © {new Date().getFullYear()} Vishwa Kumar S. All rights reserved.
-              </Text>
-            </VStack>
-
-            <Text fontSize="sm" color={useColorModeValue('text.tertiary', 'text.inverse')}>
-              {`{Always learning, always growing}`}
-            </Text>
-          </VStack>
+          {/* Copyright */}
+          <Text fontSize="sm" color={mutedColor} textAlign="center">
+            Built with{' '}
+            <Icon as={FaHeart} w={3} h={3} color="warm.500" mx={1} display="inline" verticalAlign="middle" />
+            {' '}by Vishwa Kumar S · {new Date().getFullYear()}
+          </Text>
         </VStack>
-      </Box>
+      </Container>
     </Box>
   )
 }

@@ -2,316 +2,209 @@ import {
   Box,
   Container,
   Heading,
-  SimpleGrid,
-  VStack,
   Text,
-  Badge,
-  useColorModeValue,
-  Flex,
-  Progress,
+  VStack,
   HStack,
+  Badge,
+  Flex,
   Icon,
-  Circle,
+  useColorModeValue,
+  SimpleGrid,
+  Progress,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FaStar, FaClock, FaCheckCircle, FaLaptopCode, FaCogs, FaBrain, FaTools, FaBullseye } from 'react-icons/fa'
+import {
+  FaPython,
+  FaJava,
+  FaReact,
+  FaDocker,
+  FaGitAlt,
+  FaDatabase,
+  FaAws,
+  FaBrain,
+  FaRobot,
+  FaSearch,
+  FaCode,
+  FaCogs,
+} from 'react-icons/fa'
+import {
+  SiTypescript,
+  SiFastapi,
+  SiFlask,
+  SiMongodb,
+  SiElasticsearch,
+  SiPostgresql,
+  SiLangchain,
+} from 'react-icons/si'
 
 const MotionBox = motion(Box)
+
+interface Skill {
+  name: string
+  icon: any
+  level: number
+  proficiency: string
+  color: string
+}
 
 const skillCategories = [
   {
     title: 'Languages',
-    icon: FaLaptopCode,
     skills: [
-      { name: 'Python', level: 95, experience: '3+ years', projects: 12, proficiency: 'Expert' },
-      { name: 'Java', level: 80, experience: '2+ years', projects: 6, proficiency: 'Advanced' },
-      { name: 'React/TypeScript', level: 85, experience: '2+ years', projects: 8, proficiency: 'Advanced' },
-      { name: 'SQL (MySQL)', level: 90, experience: '3+ years', projects: 15, proficiency: 'Expert' },
+      { name: 'Python', icon: FaPython, level: 90, proficiency: 'Expert', color: 'accent' },
+      { name: 'Java', icon: FaJava, level: 80, proficiency: 'Advanced', color: 'warm' },
+      { name: 'TypeScript', icon: SiTypescript, level: 75, proficiency: 'Advanced', color: 'accent' },
     ],
   },
   {
-    title: 'Frameworks & Libraries',
-    icon: FaCogs,
+    title: 'Frameworks',
     skills: [
-      { name: 'Flask/FastAPI', level: 90, experience: '2.5+ years', projects: 10, proficiency: 'Expert' },
-      { name: 'Chakra UI', level: 85, experience: '1.5+ years', projects: 5, proficiency: 'Advanced' },
-      { name: 'Playwright', level: 75, experience: '1+ year', projects: 4, proficiency: 'Intermediate' },
-      { name: 'LangChain', level: 80, experience: '1.5+ years', projects: 6, proficiency: 'Advanced' },
+      { name: 'FastAPI', icon: SiFastapi, level: 88, proficiency: 'Expert', color: 'emerald' },
+      { name: 'Flask', icon: SiFlask, level: 82, proficiency: 'Advanced', color: 'violet' },
+      { name: 'React', icon: FaReact, level: 72, proficiency: 'Advanced', color: 'accent' },
     ],
   },
   {
-    title: 'AI/ML Technologies',
-    icon: FaBrain,
+    title: 'AI & ML',
     skills: [
-      { name: 'NLP & LLM', level: 85, experience: '2+ years', projects: 8, proficiency: 'Advanced' },
-      { name: 'Computer Vision (ViT)', level: 75, experience: '1.5+ years', projects: 3, proficiency: 'Advanced' },
-      { name: 'Transformers', level: 80, experience: '2+ years', projects: 6, proficiency: 'Advanced' },
-      { name: 'Vector Databases (FAISS)', level: 70, experience: '1+ year', projects: 4, proficiency: 'Intermediate' },
+      { name: 'LangChain', icon: SiLangchain, level: 85, proficiency: 'Expert', color: 'emerald' },
+      { name: 'NLP', icon: FaBrain, level: 78, proficiency: 'Advanced', color: 'violet' },
+      { name: 'Computer Vision', icon: FaSearch, level: 70, proficiency: 'Intermediate', color: 'warm' },
     ],
   },
   {
-    title: 'Tools & Infrastructure',
-    icon: FaTools,
+    title: 'Infrastructure',
     skills: [
-      { name: 'Git/GitHub', level: 95, experience: '3+ years', projects: 20, proficiency: 'Expert' },
-      { name: 'Docker', level: 80, experience: '1.5+ years', projects: 7, proficiency: 'Advanced' },
-      { name: 'Elasticsearch', level: 75, experience: '1+ year', projects: 3, proficiency: 'Advanced' },
-      { name: 'Linux/Shell', level: 85, experience: '2+ years', projects: 12, proficiency: 'Advanced' },
+      { name: 'Docker', icon: FaDocker, level: 80, proficiency: 'Advanced', color: 'accent' },
+      { name: 'PostgreSQL', icon: SiPostgresql, level: 82, proficiency: 'Advanced', color: 'accent' },
+      { name: 'Elasticsearch', icon: SiElasticsearch, level: 75, proficiency: 'Advanced', color: 'warm' },
     ],
   },
 ]
 
-const SkillCard = ({ skill, index }: { skill: typeof skillCategories[0]['skills'][0]; index: number }) => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
+const proficiencyColors: Record<string, { bg: string; text: string }> = {
+  Expert: { bg: 'emerald', text: 'emerald.700' },
+  Advanced: { bg: 'accent', text: 'accent.700' },
+  Intermediate: { bg: 'warm', text: 'warm.700' },
+}
 
-  const getProficiencyColor = (proficiency: string) => {
-    switch (proficiency) {
-      case 'Expert': return { color: 'green.500', bg: 'green.50', textColor: 'green.800' }
-      case 'Advanced': return { color: 'blue.500', bg: 'blue.50', textColor: 'blue.800' }
-      case 'Intermediate': return { color: 'orange.500', bg: 'orange.50', textColor: 'orange.800' }
-      case 'Beginner': return { color: 'gray.500', bg: 'gray.50', textColor: 'gray.800' }
-      default: return { color: 'gray.500', bg: 'gray.50', textColor: 'gray.800' }
-    }
-  }
-
-  const proficiencyStyle = getProficiencyColor(skill.proficiency)
+function SkillCard({ skill, index }: { skill: Skill; index: number }) {
+  const cardBg = useColorModeValue('white', 'whiteAlpha.50')
+  const cardBorder = useColorModeValue('brand.200', 'whiteAlpha.100')
+  const textColor = useColorModeValue('text.primary', 'text.inverse')
+  const mutedColor = useColorModeValue('text.secondary', 'text.muted')
+  const profColor = proficiencyColors[skill.proficiency] || proficiencyColors.Intermediate
 
   return (
-    <MotionBox
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+    <HStack
+      p={4}
+      bg={cardBg}
+      borderRadius="xl"
+      border="1px solid"
+      borderColor={cardBorder}
+      spacing={4}
+      _hover={{
+        transform: 'translateY(-2px)',
+        boxShadow: useColorModeValue(
+          '0 8px 24px rgba(0,0,0,0.06)',
+          '0 8px 24px rgba(0,0,0,0.3)'
+        ),
+        borderColor: useColorModeValue('brand.300', 'whiteAlpha.200'),
+      }}
     >
-      <VStack
-        p={4}
-        bg={useColorModeValue('white', 'gray.800')}
-        borderRadius="xl"
-        border="1px solid"
-        borderColor={useColorModeValue('gray.200', 'gray.600')}
-        spacing={3}
-        w="full"
-        _hover={{
-          transform: 'translateY(-2px)',
-          boxShadow: 'md',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        }}
+      <Box
+        w={10}
+        h={10}
+        borderRadius="lg"
+        bg={useColorModeValue(`${skill.color}.50`, 'whiteAlpha.100')}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        flexShrink={0}
       >
-        {/* Skill Header */}
-        <HStack w="full" justify="space-between" align="start">
-          <VStack align="start" spacing={1} flex={1}>
-            <Text
-              fontSize="md"
-              fontWeight="bold"
-              color={useColorModeValue('text.primary', 'text.inverse')}
-              lineHeight="1.3"
-            >
-              {skill.name}
-            </Text>
-            <HStack spacing={1}>
-              <Icon as={FaClock} w={3} h={3} color={useColorModeValue('text.secondary', 'text.inverse')} />
-              <Text fontSize="xs" color={useColorModeValue('text.secondary', 'text.inverse')}>
-                {skill.experience}
-              </Text>
-            </HStack>
-          </VStack>
-
-          {/* Proficiency Badge */}
+        <Icon as={skill.icon} w={5} h={5} color={`${skill.color}.500`} />
+      </Box>
+      <VStack align="start" spacing={1} flex={1} minW={0}>
+        <HStack justify="space-between" w="full">
+          <Text fontSize="sm" fontWeight="600" color={textColor} noOfLines={1}>
+            {skill.name}
+          </Text>
           <Badge
-            bg={proficiencyStyle.bg}
-            color={proficiencyStyle.textColor}
-            fontSize="xs"
-            fontWeight="bold"
-            px={2}
-            py={1}
             borderRadius="full"
-            border={`1px solid ${proficiencyStyle.color}`}
+            px={2}
+            py={0.5}
+            fontSize="2xs"
+            fontWeight="600"
+            bg={useColorModeValue(`${profColor.bg}.50`, 'whiteAlpha.100')}
+            color={useColorModeValue(profColor.text, `${profColor.bg}.300`)}
+            minW="fit-content"
           >
-            <HStack spacing={1}>
-              <Circle size="4px" bg={proficiencyStyle.color} />
-              <Text>{skill.proficiency}</Text>
-            </HStack>
+            {skill.proficiency}
           </Badge>
         </HStack>
-
-        {/* Proficiency Progress Bar */}
-        <VStack spacing={1} w="full" align="stretch">
-          <HStack justify="space-between" align="center">
-            <Text fontSize="xs" color={useColorModeValue('text.secondary', 'text.inverse')} fontWeight="medium">
-              Proficiency
-            </Text>
-            <Text fontSize="xs" color={useColorModeValue('text.secondary', 'text.inverse')} fontWeight="bold">
-              {skill.level}%
-            </Text>
-          </HStack>
-          <Progress
-            value={skill.level}
-            colorScheme={
-              skill.level >= 90 ? 'green' :
-              skill.level >= 75 ? 'blue' :
-              skill.level >= 60 ? 'orange' : 'gray'
-            }
-            size="sm"
-            borderRadius="full"
-            bg={useColorModeValue('gray.200', 'gray.600')}
-          />
-        </VStack>
-
-        {/* Projects Count */}
-        <HStack spacing={2} w="full" justify="flex-start">
-          <Icon as={FaCheckCircle} w={3} h={3} color={useColorModeValue('green.500', 'green.400')} />
-          <Text fontSize="xs" color={useColorModeValue('text.secondary', 'text.inverse')}>
-            {skill.projects}+ projects completed
-          </Text>
-        </HStack>
+        <Progress
+          value={skill.level}
+          size="xs"
+          w="full"
+          borderRadius="full"
+          bg={useColorModeValue('brand.100', 'whiteAlpha.100')}
+          sx={{
+            '& > div': {
+              bg: `${skill.color}.500`,
+              borderRadius: 'full',
+            },
+          }}
+        />
       </VStack>
-    </MotionBox>
+    </HStack>
   )
 }
 
 export default function Skills() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const textColor = useColorModeValue('text.primary', 'text.inverse')
+  const mutedColor = useColorModeValue('text.secondary', 'text.muted')
 
   return (
-    <Box id="skills" py={{ base: 16, md: 24 }} bg={useColorModeValue('gray.50', 'gray.900')}>
-      <Container maxW="container.xl" px={{ base: 4, sm: 6, md: 8 }}>
-        <VStack spacing={{ base: 12, md: 16 }}>
-          {/* Enhanced Header */}
+    <Box id="skills" py={{ base: 20, md: 28 }} ref={ref}>
+      <Container maxW="container.xl">
+        <VStack spacing={{ base: 10, md: 14 }} align="stretch">
+
+          {/* Header */}
           <MotionBox
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7 }}
             textAlign="center"
           >
-            <VStack spacing={6}>
-              <VStack spacing={4}>
-                <Badge
-                  fontSize="sm"
-                  colorScheme="accent"
-                  variant="outline"
-                  px={4}
-                  py={2}
-                  borderRadius="full"
-                  letterSpacing="wider"
-                >
-                  <HStack spacing={1}>
-                    <Icon as={FaBullseye} w={3} h={3} />
-                    <Text>EXPERT-LEVEL PROFICIENCY</Text>
-                  </HStack>
-                </Badge>
-                <Heading
-                  as="h2"
-                  size="3xl"
-                  color={useColorModeValue('text.primary', 'text.inverse')}
-                  fontWeight="bold"
-                >
-                  Technical Expertise
-                </Heading>
-                <Text
-                  fontSize={{ base: "lg", md: "xl" }}
-                  color={useColorModeValue('text.secondary', 'text.inverse')}
-                  maxW="3xl"
-                  mx="auto"
-                  lineHeight="1.6"
-                >
-                  <strong>Mastering cutting-edge technologies</strong> with hands-on experience in scalable systems,
-                  AI integration, and modern development workflows. Each skill is backed by real-world application
-                  and proven results.
-                </Text>
-              </VStack>
-
-              {/* Quick Stats */}
-              <HStack
-                spacing={8}
-                justify="center"
-                flexWrap="wrap"
-                fontSize="sm"
-                color={useColorModeValue('text.secondary', 'text.inverse')}
-              >
-                <VStack spacing={1}>
-                  <Text fontWeight="bold" color="accent.600" fontSize="xl">15+</Text>
-                  <Text>Technologies Mastered</Text>
-                </VStack>
-                <VStack spacing={1}>
-                  <Text fontWeight="bold" color="accent.600" fontSize="xl">50+</Text>
-                  <Text>Projects Delivered</Text>
-                </VStack>
-                <VStack spacing={1}>
-                  <Text fontWeight="bold" color="accent.600" fontSize="xl">3+</Text>
-                  <Text>Years Experience</Text>
-                </VStack>
-              </HStack>
-            </VStack>
+            <Text fontSize="sm" color="accent.500" fontWeight="600" textTransform="uppercase" letterSpacing="0.15em" mb={4}>
+              Skills & Tools
+            </Text>
+            <Heading as="h2" size="3xl" color={textColor}>
+              My{' '}
+              <Box as="span" fontStyle="italic" color="accent.500">toolkit</Box>
+            </Heading>
           </MotionBox>
 
-          {/* Categorized Skills */}
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 8, md: 12 }} w="full" ref={ref}>
-            {skillCategories.map((category, index) => (
+          {/* Skill Categories */}
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
+            {skillCategories.map((category, catIndex) => (
               <MotionBox
                 key={category.title}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
+                transition={{ duration: 0.5, delay: catIndex * 0.1 }}
               >
-                <VStack
-                  align="start"
-                  spacing={6}
-                  p={8}
-                  bg={useColorModeValue('white', 'gray.800')}
-                  borderRadius="2xl"
-                  border="1px solid"
-                  borderColor={useColorModeValue('gray.200', 'gray.600')}
-                  boxShadow="sm"
-                  _hover={{
-                    boxShadow: 'md',
-                    transform: 'translateY(-4px)',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
-                >
-                  {/* Category Header */}
-                  <HStack spacing={3} w="full">
-                    <Icon
-                      as={category.icon}
-                      w={6}
-                      h={6}
-                      color="accent.600"
-                    />
-                    <Heading
-                      size="lg"
-                      color={useColorModeValue('text.primary', 'text.inverse')}
-                      flex={1}
-                    >
-                      {category.title}
-                    </Heading>
-                    <Badge
-                      colorScheme="accent"
-                      variant="subtle"
-                      fontSize="xs"
-                      px={3}
-                      py={1}
-                      borderRadius="full"
-                    >
-                      {category.skills.length}
-                    </Badge>
-                  </HStack>
-
-                  {/* Skills Grid */}
-                  <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4} w="full">
+                <VStack align="start" spacing={4}>
+                  <Text fontSize="sm" fontWeight="700" color={mutedColor} textTransform="uppercase" letterSpacing="0.1em">
+                    {category.title}
+                  </Text>
+                  <VStack spacing={3} w="full">
                     {category.skills.map((skill, skillIndex) => (
-                      <SkillCard
-                        key={skill.name}
-                        skill={skill}
-                        index={skillIndex}
-                      />
+                      <SkillCard key={skill.name} skill={skill} index={skillIndex} />
                     ))}
-                  </SimpleGrid>
+                  </VStack>
                 </VStack>
               </MotionBox>
             ))}

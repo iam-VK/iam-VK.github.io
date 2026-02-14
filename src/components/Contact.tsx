@@ -1,5 +1,6 @@
 import {
   Box,
+  Container,
   Heading,
   Text,
   VStack,
@@ -12,17 +13,10 @@ import {
   FormLabel,
   Input,
   Textarea,
-  Badge,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  useToast,
   FormErrorMessage,
   SimpleGrid,
-  Divider,
-  Progress,
   IconButton,
+  useToast,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
@@ -32,391 +26,241 @@ import {
   FaLinkedin,
   FaEnvelope,
   FaPhone,
-  FaRocket,
-  FaClock,
-  FaHandshake,
-  FaCheckCircle,
+  FaPaperPlane,
 } from 'react-icons/fa'
 
 const MotionBox = motion(Box)
-const MotionVStack = motion(VStack)
 
 export default function Contact() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
   const toast = useToast()
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  })
+  const textColor = useColorModeValue('text.primary', 'text.inverse')
+  const mutedColor = useColorModeValue('text.secondary', 'text.muted')
+  const cardBg = useColorModeValue('white', 'whiteAlpha.50')
+  const cardBorder = useColorModeValue('brand.200', 'whiteAlpha.100')
+
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
-
-  // Scarcity: Limited time offer countdown (mock)
-  const [timeLeft, setTimeLeft] = useState({
-    days: 7,
-    hours: 12,
-    minutes: 34
-  })
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {}
     if (!formData.name.trim()) newErrors.name = 'Name is required'
     if (!formData.email.trim()) newErrors.email = 'Email is required'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email'
-    }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Invalid email'
     if (!formData.message.trim()) newErrors.message = 'Message is required'
-    else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters'
-    }
+    else if (formData.message.trim().length < 10) newErrors.message = 'At least 10 characters'
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }))
-    }
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!validateForm()) return
-
     setIsSubmitting(true)
-
-    // Mock form submission - replace with actual API call
     try {
       await new Promise(resolve => setTimeout(resolve, 2000))
-      toast({
-        title: "Message sent successfully!",
-        description: "Thank you for reaching out. I'll respond within 24 hours.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      })
+      toast({ title: 'Message sent!', description: "I'll respond within 24 hours.", status: 'success', duration: 5000, isClosable: true })
       setFormData({ name: '', email: '', message: '' })
-    } catch (error) {
-      toast({
-        title: "Error sending message",
-        description: "Please try again or contact me directly.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      })
+    } catch {
+      toast({ title: 'Error', description: 'Please try again.', status: 'error', duration: 5000, isClosable: true })
     } finally {
       setIsSubmitting(false)
     }
   }
 
   return (
-    <Box id="contact" py={{ base: 20, md: 32 }} bg={useColorModeValue('gray.50', 'gray.900')}>
-      <Box maxW="container.xl" mx="auto" px={{ base: 4, sm: 6, md: 8 }}>
-        <VStack spacing={{ base: 12, md: 20 }} align="center" ref={ref}>
+    <Box id="contact" py={{ base: 20, md: 28 }} ref={ref}>
+      <Container maxW="container.xl">
+        <VStack spacing={{ base: 10, md: 14 }}>
 
-          {/* Clean Apple-Style Header */}
-          <MotionVStack
-            spacing={6}
-            textAlign="center"
-            maxW="4xl"
+          {/* Header */}
+          <MotionBox
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
+            textAlign="center"
+            maxW="3xl"
           >
-            <VStack spacing={4}>
-              <Heading
-                size={{ base: "2xl", md: "3xl" }}
-                color={useColorModeValue('text.primary', 'text.inverse')}
-                fontWeight="bold"
-              >
-                Let's Build Something Amazing Together
-              </Heading>
+            <Text fontSize="sm" color="accent.500" fontWeight="600" textTransform="uppercase" letterSpacing="0.15em" mb={4}>
+              Contact
+            </Text>
+            <Heading as="h2" size="3xl" color={textColor} mb={4}>
+              Let's{' '}
+              <Box as="span" fontStyle="italic" color="accent.500">connect</Box>
+            </Heading>
+            <Text fontSize={{ base: 'md', md: 'lg' }} color={mutedColor}>
+              I'm always excited to discuss new opportunities, interesting projects, or just chat about tech and AI.
+            </Text>
+          </MotionBox>
 
-              <Text
-                fontSize={{ base: "lg", md: "xl" }}
-                color={useColorModeValue('text.secondary', 'text.inverse')}
-                maxW="3xl"
-                lineHeight="1.6"
-              >
-                I'm always excited to discuss new opportunities, interesting projects, or just chat about the latest in tech and AI.
-              </Text>
-            </VStack>
-          </MotionVStack>
+          <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={{ base: 8, lg: 12 }} w="full" maxW="5xl">
 
-          <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={{ base: 8, lg: 12 }} w="full" maxW="6xl">
-
-            {/* Contact Form */}
+            {/* Form */}
             <MotionBox
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -20 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
             >
               <VStack
-                spacing={6}
+                as="form"
+                onSubmit={handleSubmit}
+                spacing={5}
                 p={{ base: 6, md: 8 }}
-                bg={useColorModeValue('white', 'gray.800')}
+                bg={cardBg}
                 borderRadius="2xl"
                 border="1px solid"
-                borderColor={useColorModeValue('gray.200', 'gray.600')}
-                boxShadow="lg"
+                borderColor={cardBorder}
               >
-                <VStack spacing={2} align="start" w="full">
-                  <Heading size="lg" color={useColorModeValue('text.primary', 'text.inverse')}>
-                    Send a Message
-                  </Heading>
-                  <Text fontSize="sm" color={useColorModeValue('text.secondary', 'text.inverse')}>
-                    I'll respond within 24 hours. Let's discuss your project!
-                  </Text>
-                </VStack>
+                <Text fontSize="lg" fontWeight="700" fontFamily="heading" color={textColor} alignSelf="start">
+                  Send a message
+                </Text>
 
-                <Box as="form" onSubmit={handleSubmit} w="full" spacing={4}>
-                  <VStack spacing={4}>
-                    <FormControl isInvalid={!!errors.name}>
-                      <FormLabel color={useColorModeValue('text.primary', 'text.inverse')}>Name</FormLabel>
-                      <Input
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="Your full name"
-                        bg={useColorModeValue('gray.50', 'gray.700')}
-                        border="1px solid"
-                        borderColor={useColorModeValue('gray.200', 'gray.600')}
-                        _hover={{
-                          borderColor: 'accent.300'
-                        }}
-                        _focus={{
-                          borderColor: 'accent.500',
-                          boxShadow: '0 0 0 1px var(--chakra-colors-accent-500)'
-                        }}
-                      />
-                      <FormErrorMessage>{errors.name}</FormErrorMessage>
-                    </FormControl>
+                <FormControl isInvalid={!!errors.name}>
+                  <FormLabel fontSize="sm" color={mutedColor}>Name</FormLabel>
+                  <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your name" borderRadius="xl" />
+                  <FormErrorMessage>{errors.name}</FormErrorMessage>
+                </FormControl>
 
-                    <FormControl isInvalid={!!errors.email}>
-                      <FormLabel color={useColorModeValue('text.primary', 'text.inverse')}>Email</FormLabel>
-                      <Input
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="your.email@example.com"
-                        bg={useColorModeValue('gray.50', 'gray.700')}
-                        border="1px solid"
-                        borderColor={useColorModeValue('gray.200', 'gray.600')}
-                        _hover={{
-                          borderColor: 'accent.300'
-                        }}
-                        _focus={{
-                          borderColor: 'accent.500',
-                          boxShadow: '0 0 0 1px var(--chakra-colors-accent-500)'
-                        }}
-                      />
-                      <FormErrorMessage>{errors.email}</FormErrorMessage>
-                    </FormControl>
+                <FormControl isInvalid={!!errors.email}>
+                  <FormLabel fontSize="sm" color={mutedColor}>Email</FormLabel>
+                  <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="your@email.com" borderRadius="xl" />
+                  <FormErrorMessage>{errors.email}</FormErrorMessage>
+                </FormControl>
 
-                    <FormControl isInvalid={!!errors.message}>
-                      <FormLabel color={useColorModeValue('text.primary', 'text.inverse')}>Message</FormLabel>
-                      <Textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        placeholder="Tell me about your project, timeline, and goals..."
-                        rows={5}
-                        bg={useColorModeValue('gray.50', 'gray.700')}
-                        border="1px solid"
-                        borderColor={useColorModeValue('gray.200', 'gray.600')}
-                        _hover={{
-                          borderColor: 'accent.300'
-                        }}
-                        _focus={{
-                          borderColor: 'accent.500',
-                          boxShadow: '0 0 0 1px var(--chakra-colors-accent-500)'
-                        }}
-                      />
-                      <FormErrorMessage>{errors.message}</FormErrorMessage>
-                    </FormControl>
+                <FormControl isInvalid={!!errors.message}>
+                  <FormLabel fontSize="sm" color={mutedColor}>Message</FormLabel>
+                  <Textarea name="message" value={formData.message} onChange={handleChange} placeholder="Tell me about your project..." rows={5} borderRadius="xl" />
+                  <FormErrorMessage>{errors.message}</FormErrorMessage>
+                </FormControl>
 
-                    <Button
-                      type="submit"
-                      colorScheme="accent"
-                      size="lg"
-                      w="full"
-                      isLoading={isSubmitting}
-                      loadingText="Sending..."
-                      leftIcon={<FaRocket />}
-                      _hover={{ transform: 'translateY(-2px)' }}
-                      transition="all 0.2s"
-                    >
-                      Send Message
-                    </Button>
-                  </VStack>
-                </Box>
+                <Button
+                  type="submit"
+                  variant="accent"
+                  size="lg"
+                  w="full"
+                  isLoading={isSubmitting}
+                  loadingText="Sending..."
+                  leftIcon={<FaPaperPlane />}
+                >
+                  Send Message
+                </Button>
               </VStack>
             </MotionBox>
 
-            {/* Contact Info & Social Proof */}
+            {/* Contact Info */}
             <MotionBox
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 20 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <VStack spacing={6}>
-
-                {/* Direct Contact Info - RECIPROCITY */}
-                <VStack
-                  spacing={6}
-                  p={{ base: 6, md: 8 }}
-                  bg={useColorModeValue('white', 'gray.800')}
-                  borderRadius="2xl"
-                  border="1px solid"
-                  borderColor={useColorModeValue('gray.200', 'gray.600')}
-                  boxShadow="lg"
-                  w="full"
-                >
-                  <VStack spacing={4} w="full">
-                    <Heading size="lg" color={useColorModeValue('text.primary', 'text.inverse')}>
-                      Get In Touch
-                    </Heading>
-                    <Text fontSize="sm" color={useColorModeValue('text.secondary', 'text.inverse')}>
-                      Multiple ways to connect—choose what's most convenient for you
-                    </Text>
-                    <Divider />
-                  </VStack>
-
-                  <VStack spacing={4} w="full">
-                    <Button
-                      as={Link}
-                      href="mailto:vishwakumar.petit@gmail.com"
-                      leftIcon={<FaEnvelope />}
-                      variant="outline"
-                      borderColor="accent.400"
-                      color="accent.600"
-                      w="full"
-                      justifyContent="flex-start"
-                      _hover={{ bg: 'accent.50', transform: 'translateY(-1px)' }}
-                      transition="all 0.2s"
-                    >
-                      vishwakumar.petit@gmail.com
-                    </Button>
-
-                    <Button
-                      as={Link}
-                      href="tel:+919488321830"
-                      leftIcon={<FaPhone />}
-                      variant="outline"
-                      borderColor="green.400"
-                      color="green.600"
-                      w="full"
-                      justifyContent="flex-start"
-                      _hover={{ bg: 'green.50', transform: 'translateY(-1px)' }}
-                      transition="all 0.2s"
-                    >
-                      +91 9488321830
-                    </Button>
-                  </VStack>
-
-                  <Divider />
-
-                  {/* Social Links */}
-                  <VStack spacing={3} w="full">
-                    <Text fontSize="sm" fontWeight="bold" color={useColorModeValue('text.primary', 'text.inverse')}>
-                      Connect on Social Platforms
-                    </Text>
-                    <HStack spacing={3}>
-                      <Link href="https://github.com/yourusername" isExternal>
-                        <IconButton
-                          aria-label="GitHub"
-                          icon={<FaGithub />}
-                          variant="outline"
-                          borderColor={useColorModeValue('gray.300', 'gray.600')}
-                          _hover={{ borderColor: 'accent.400', color: 'accent.600' }}
-                          transition="all 0.2s"
-                        />
-                      </Link>
-                      <Link href="https://linkedin.com/in/yourusername" isExternal>
-                        <IconButton
-                          aria-label="LinkedIn"
-                          icon={<FaLinkedin />}
-                          variant="outline"
-                          borderColor={useColorModeValue('gray.300', 'gray.600')}
-                          _hover={{ borderColor: 'accent.400', color: 'accent.600' }}
-                          transition="all 0.2s"
-                        />
-                      </Link>
-                      <Link href="mailto:vishwakumar.petit@gmail.com">
-                        <IconButton
-                          aria-label="Email"
-                          icon={<FaEnvelope />}
-                          variant="outline"
-                          borderColor={useColorModeValue('gray.300', 'gray.600')}
-                          _hover={{ borderColor: 'accent.400', color: 'accent.600' }}
-                          transition="all 0.2s"
-                        />
-                      </Link>
-                    </HStack>
-                  </VStack>
-                </VStack>
-
-                {/* Social Proof - Response Guarantee */}
-                <Alert status="success" borderRadius="lg" bg={useColorModeValue('green.50', 'green.900/20')} border="1px solid" borderColor="green.200">
-                  <AlertIcon />
-                  <Box>
-                    <AlertTitle>Response Guarantee!</AlertTitle>
-                    <AlertDescription>
-                      I personally review every message and respond within 24 hours. <strong>92% of inquiries become successful collaborations.</strong>
-                    </AlertDescription>
-                  </Box>
-                </Alert>
-
-                {/* Collaboration Stats - Social Proof */}
+              <VStack spacing={6} h="full">
+                {/* Direct Contact */}
                 <VStack
                   spacing={4}
-                  p={6}
-                  bg={useColorModeValue('accent.50', 'accent.900/20')}
-                  borderRadius="xl"
+                  p={{ base: 6, md: 8 }}
+                  bg={cardBg}
+                  borderRadius="2xl"
                   border="1px solid"
-                  borderColor="accent.200"
+                  borderColor={cardBorder}
+                  w="full"
+                  align="start"
+                >
+                  <Text fontSize="lg" fontWeight="700" fontFamily="heading" color={textColor}>
+                    Get in touch
+                  </Text>
+
+                  <Button
+                    as={Link}
+                    href="mailto:vishwakumar.petit@gmail.com"
+                    leftIcon={<FaEnvelope />}
+                    variant="outline"
+                    w="full"
+                    justifyContent="flex-start"
+                    size="md"
+                    _hover={{ textDecoration: 'none' }}
+                  >
+                    vishwakumar.petit@gmail.com
+                  </Button>
+
+                  <Button
+                    as={Link}
+                    href="tel:+919488321830"
+                    leftIcon={<FaPhone />}
+                    variant="outline"
+                    w="full"
+                    justifyContent="flex-start"
+                    size="md"
+                    _hover={{ textDecoration: 'none' }}
+                  >
+                    +91 9488321830
+                  </Button>
+                </VStack>
+
+                {/* Social */}
+                <VStack
+                  spacing={4}
+                  p={{ base: 6, md: 8 }}
+                  bg={cardBg}
+                  borderRadius="2xl"
+                  border="1px solid"
+                  borderColor={cardBorder}
+                  w="full"
+                  align="start"
+                >
+                  <Text fontSize="sm" fontWeight="600" color={mutedColor} textTransform="uppercase" letterSpacing="0.1em">
+                    Social
+                  </Text>
+                  <HStack spacing={3}>
+                    {[
+                      { icon: FaGithub, href: 'https://github.com/iam-VK', label: 'GitHub' },
+                      { icon: FaLinkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
+                      { icon: FaEnvelope, href: 'mailto:vishwakumar.petit@gmail.com', label: 'Email' },
+                    ].map((s) => (
+                      <IconButton
+                        key={s.label}
+                        as={Link}
+                        href={s.href}
+                        isExternal={s.href.startsWith('http')}
+                        aria-label={s.label}
+                        icon={<Icon as={s.icon} />}
+                        variant="outline"
+                        borderRadius="full"
+                        size="lg"
+                        _hover={{ bg: useColorModeValue('blackAlpha.50', 'whiteAlpha.100'), textDecoration: 'none' }}
+                      />
+                    ))}
+                  </HStack>
+                </VStack>
+
+                {/* Response guarantee */}
+                <Box
+                  p={5}
+                  borderRadius="2xl"
+                  bg={useColorModeValue('emerald.50', 'whiteAlpha.50')}
+                  border="1px solid"
+                  borderColor={useColorModeValue('emerald.100', 'whiteAlpha.100')}
                   w="full"
                 >
-                  <HStack spacing={2}>
-                    <Icon as={FaHandshake} w={5} h={5} color="accent.600" />
-                    <Text fontWeight="bold" color={useColorModeValue('text.primary', 'text.inverse')}>
-                      Collaboration Success
-                    </Text>
+                  <HStack spacing={3}>
+                    <Text fontSize="xl">⚡</Text>
+                    <VStack align="start" spacing={0}>
+                      <Text fontSize="sm" fontWeight="700" color={textColor}>Usually responds within 24h</Text>
+                      <Text fontSize="xs" color={mutedColor}>I read every message personally</Text>
+                    </VStack>
                   </HStack>
-
-                  <SimpleGrid columns={2} spacing={4} w="full" textAlign="center">
-                    <VStack spacing={1}>
-                      <Text fontSize="2xl" fontWeight="bold" color="accent.600">50+</Text>
-                      <Text fontSize="xs" color={useColorModeValue('text.secondary', 'text.inverse')}>
-                        Projects Completed
-                      </Text>
-                    </VStack>
-                    <VStack spacing={1}>
-                      <Text fontSize="2xl" fontWeight="bold" color="accent.600">98%</Text>
-                      <Text fontSize="xs" color={useColorModeValue('text.secondary', 'text.inverse')}>
-                        Client Satisfaction
-                      </Text>
-                    </VStack>
-                  </SimpleGrid>
-
-                  <Progress value={98} colorScheme="accent" size="sm" borderRadius="full" />
-                  <Text fontSize="xs" color={useColorModeValue('text.secondary', 'text.inverse')} textAlign="center">
-                    Based on client feedback and project outcomes
-                  </Text>
-                </VStack>
+                </Box>
               </VStack>
             </MotionBox>
           </SimpleGrid>
         </VStack>
-      </Box>
+      </Container>
     </Box>
   )
 }

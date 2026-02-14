@@ -2,63 +2,85 @@ import { extendTheme, type StyleFunctionProps } from '@chakra-ui/react';
 
 const theme = extendTheme({
   colors: {
-    // Black gradient-focused monochrome palette
     brand: {
-      50: '#ffffff',
-      100: '#fafbfc',
-      200: '#f1f5f9',
-      300: '#e2e8f0',
-      400: '#cbd5e1',
-      500: '#94a3b8',
-      600: '#64748b',
-      700: '#475569',
-      800: '#334155',
-      900: '#1e293b',
-      950: '#0f172a',
-      980: '#020617',
-      990: '#000000',
-      995: '#000000',
+      50: '#f6f6f2',   // Arc warm cream
+      100: '#eeedea',
+      200: '#dddbd6',
+      300: '#c8c5be',
+      400: '#a8a49c',
+      500: '#87837a',
+      600: '#6b675f',
+      700: '#504d47',
+      800: '#363430',
+      900: '#1e1d1a',
+      950: '#121110',
+      980: '#0a0a09',
+      990: '#050504',
     },
-    // Minimal accent for subtle highlights only
+    // Arc-style vibrant electric blue
     accent: {
-      50: '#f8fafc',
-      100: '#f1f5f9',
-      200: '#e2e8f0',
-      300: '#cbd5e1',
-      400: '#94a3b8',
-      500: '#64748b',
-      600: '#475569',
-      700: '#334155',
-      800: '#1e293b',
-      900: '#0f172a',
+      50: '#eef8ff',
+      100: '#d8efff',
+      200: '#b9e3ff',
+      300: '#89d3ff',
+      400: '#51b8ff',
+      500: '#2898ff',
+      600: '#1177ff',
+      700: '#0a5fef',
+      800: '#0f4cc1',
+      900: '#134498',
+    },
+    // Warm violet for secondary accents
+    violet: {
+      50: '#f5f3ff',
+      100: '#ede9fe',
+      200: '#ddd6fe',
+      300: '#c4b5fd',
+      400: '#a78bfa',
+      500: '#8b5cf6',
+      600: '#7c3aed',
+      700: '#6d28d9',
+      800: '#5b21b6',
+      900: '#4c1d95',
+    },
+    // Arc warm orange for highlights
+    warm: {
+      50: '#fff7ed',
+      100: '#ffedd5',
+      200: '#fed7aa',
+      300: '#fdba74',
+      400: '#fb923c',
+      500: '#f97316',
+      600: '#ea580c',
+      700: '#c2410c',
+      800: '#9a3412',
+      900: '#7c2d12',
+    },
+    // Emerald for success
+    emerald: {
+      50: '#ecfdf5',
+      100: '#d1fae5',
+      200: '#a7f3d0',
+      300: '#6ee7b7',
+      400: '#34d399',
+      500: '#10b981',
+      600: '#059669',
+      700: '#047857',
+      800: '#065f46',
+      900: '#064e3b',
     },
     text: {
-      primary: '#0f172a',
-      secondary: '#475569',
-      tertiary: '#64748b',
-      inverse: '#f8fafc',
-      accent: '#64748b',
-    },
-    // Sophisticated grays with black focus
-    gray: {
-      50: '#f8fafc',
-      100: '#f1f5f9',
-      200: '#e2e8f0',
-      300: '#cbd5e1',
-      400: '#94a3b8',
-      500: '#64748b',
-      600: '#475569',
-      700: '#334155',
-      800: '#1e293b',
-      900: '#0f172a',
-      950: '#020617',
+      primary: '#1e1d1a',
+      secondary: '#6b675f',
+      tertiary: '#a8a49c',
+      inverse: '#f6f6f2',
+      muted: 'rgba(246, 246, 242, 0.6)',
     },
   },
   fonts: {
-    heading: '"Poppins", Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif',
-    body: 'Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif',
-    mono: '"JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", Consolas, "Courier New", monospace',
-    accent: '"Crimson Text", "Times New Roman", serif',
+    heading: '"Playfair Display", "Georgia", "Times New Roman", serif',
+    body: '"Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+    mono: '"JetBrains Mono", "SF Mono", Monaco, Consolas, monospace',
   },
   fontWeights: {
     thin: 300,
@@ -67,6 +89,7 @@ const theme = extendTheme({
     semibold: 600,
     bold: 700,
     extrabold: 800,
+    black: 900,
   },
   fontSizes: {
     xs: 'clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem)',
@@ -78,7 +101,18 @@ const theme = extendTheme({
     '3xl': 'clamp(1.875rem, 1.5rem + 1.375vw, 2.25rem)',
     '4xl': 'clamp(2.25rem, 1.8rem + 1.75vw, 3rem)',
     '5xl': 'clamp(3rem, 2.2rem + 2.25vw, 4rem)',
-    '6xl': 'clamp(4rem, 2.8rem + 3.1vw, 5rem)',
+    '6xl': 'clamp(4rem, 2.8rem + 3.1vw, 5.5rem)',
+    '7xl': 'clamp(5rem, 3.5rem + 4vw, 7rem)',
+  },
+  radii: {
+    none: '0',
+    sm: '0.375rem',
+    md: '0.5rem',
+    lg: '0.75rem',
+    xl: '1rem',
+    '2xl': '1.5rem',
+    '3xl': '2rem',
+    full: '9999px',
   },
   space: {
     1: '0.25rem',
@@ -104,65 +138,32 @@ const theme = extendTheme({
     },
   },
   breakpoints: {
-    base: '0em',   // 0px
-    sm: '36em',    // 576px
-    md: '48em',    // 768px
-    lg: '64em',    // 1024px
-    xl: '80em',    // 1280px
-    '2xl': '96em', // 1536px
+    base: '0em',
+    sm: '36em',
+    md: '48em',
+    lg: '64em',
+    xl: '80em',
+    '2xl': '96em',
   },
   styles: {
     global: (props: StyleFunctionProps) => ({
       '*': {
-        transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        transition: 'color 0.2s ease, background-color 0.3s ease, border-color 0.2s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       },
       'html, body': {
-        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif',
-        fontFeatureSettings: '"tnum"',
-        fontVariantNumeric: 'tabular-nums',
+        fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
         lineHeight: 1.6,
       },
       body: {
-        bg: props.colorMode === 'dark' ? 'brand.990' : 'brand.50',
+        bg: props.colorMode === 'dark' ? 'brand.950' : 'brand.50',
         color: props.colorMode === 'dark' ? 'text.inverse' : 'text.primary',
         overflowX: 'hidden',
         position: 'relative',
-        backgroundImage: `
-          radial-gradient(circle at 20% 80%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.03)' : 'rgba(234, 179, 8, 0.02)'} 0%, transparent 50%),
-          radial-gradient(circle at 80% 20%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.02)' : 'rgba(234, 179, 8, 0.01)'} 0%, transparent 50%),
-          radial-gradient(circle at 40% 40%, ${props.colorMode === 'dark' ? 'rgba(15, 23, 42, 0.8)' : 'rgba(15, 23, 42, 0.1)'} 0%, transparent 50%)
-        `,
-        backgroundAttachment: 'fixed',
-        backgroundSize: '100% 100%, 80% 80%, 60% 60%',
-        backgroundPosition: '0% 0%, 100% 100%, 50% 50%',
-      },
-      // Animated floating particles
-      '@keyframes float1': {
-        '0%': { transform: 'translate(0, 0) rotate(0deg)', opacity: '0.1' },
-        '33%': { transform: 'translate(30px, -30px) rotate(120deg)', opacity: '0.3' },
-        '66%': { transform: 'translate(-20px, -60px) rotate(240deg)', opacity: '0.2' },
-        '100%': { transform: 'translate(0, 0) rotate(360deg)', opacity: '0.1' },
-      },
-      '@keyframes float2': {
-        '0%': { transform: 'translate(0, 0) scale(1)', opacity: '0.15' },
-        '50%': { transform: 'translate(-40px, 40px) scale(1.2)', opacity: '0.25' },
-        '100%': { transform: 'translate(0, 0) scale(1)', opacity: '0.15' },
-      },
-      '@keyframes float3': {
-        '0%': { transform: 'translate(0, 0) rotate(0deg)', opacity: '0.05' },
-        '50%': { transform: 'translate(50px, 50px) rotate(180deg)', opacity: '0.2' },
-        '100%': { transform: 'translate(0, 0) rotate(360deg)', opacity: '0.05' },
-      },
-      '@keyframes drift': {
-        '0%': { transform: 'translate(0, 0) scale(1) rotate(0deg)', opacity: '0.1' },
-        '25%': { transform: 'translate(-30px, 20px) scale(1.1) rotate(90deg)', opacity: '0.25' },
-        '50%': { transform: 'translate(40px, -40px) scale(0.9) rotate(180deg)', opacity: '0.15' },
-        '75%': { transform: 'translate(-20px, 60px) scale(1.05) rotate(270deg)', opacity: '0.3' },
-        '100%': { transform: 'translate(0, 0) scale(1) rotate(360deg)', opacity: '0.1' },
       },
 
+      // Noise texture overlay – the Arc signature look
       'body::after': {
         content: '""',
         position: 'fixed',
@@ -171,195 +172,59 @@ const theme = extendTheme({
         width: '100%',
         height: '100%',
         pointerEvents: 'none',
-        zIndex: -1,
-        opacity: 0.4,
-        backgroundImage: `
-          url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.45' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E"),
-          radial-gradient(circle at 20% 20%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.12)' : 'rgba(234, 179, 8, 0.06)'} 0%, transparent 50%),
-          radial-gradient(circle at 80% 80%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.10)' : 'rgba(234, 179, 8, 0.05)'} 0%, transparent 50%),
-          radial-gradient(circle at 40% 60%, ${props.colorMode === 'dark' ? 'rgba(15, 23, 42, 0.95)' : 'rgba(15, 23, 42, 0.15)'} 0%, transparent 50%)
-        `,
-        backdropFilter: props.colorMode === 'dark' ? 'blur(1px) brightness(1.1) contrast(1.1)' : 'blur(0.8px) brightness(0.98) contrast(1.05)',
+        zIndex: 9999,
+        opacity: props.colorMode === 'dark' ? 0.04 : 0.03,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        backgroundRepeat: 'repeat',
       },
 
-      // Floating geometric shapes
-      'body::before': {
-        content: '""',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        pointerEvents: 'none',
-        zIndex: -1,
-        background: `
-          radial-gradient(circle at 15% 15%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.08)' : 'rgba(234, 179, 8, 0.05)'} 0%, transparent 30%),
-          radial-gradient(circle at 85% 85%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.06)' : 'rgba(234, 179, 8, 0.04)'} 0%, transparent 30%),
-          radial-gradient(circle at 45% 75%, ${props.colorMode === 'dark' ? 'rgba(15, 23, 42, 0.8)' : 'rgba(15, 23, 42, 0.08)'} 0%, transparent 40%)
-        `,
-      },
-
-      // Floating spheres/bokeh
-      // Dramatic floating circles - highly visible bokeh effects
-      '& .bg-floating-circle': {
-        position: 'fixed',
-        top: '10%',
-        left: '10%',
-        width: '280px',
-        height: '280px',
-        borderRadius: '50%',
-        background: `radial-gradient(circle at 30% 30%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.35)' : 'rgba(234, 179, 8, 0.20)'} 0%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.15)' : 'rgba(234, 179, 8, 0.08)'} 40%, transparent 70%)`,
-        filter: 'blur(80px)',
-        animation: 'drift 25s infinite ease-in-out',
-        zIndex: -1,
-        opacity: 0.9,
-      },
-
-      '& .bg-floating-circle-2': {
-        position: 'fixed',
-        top: '60%',
-        right: '15%',
-        width: '240px',
-        height: '240px',
-        borderRadius: '50%',
-        background: `radial-gradient(circle at 70% 70%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.30)' : 'rgba(234, 179, 8, 0.18)'} 0%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.12)' : 'rgba(234, 179, 8, 0.06)'} 50%, transparent 70%)`,
-        filter: 'blur(65px)',
-        animation: 'float1 30s infinite ease-in-out reverse',
-        animationDelay: '8s',
-        zIndex: -1,
-        opacity: 0.8,
-      },
-
-      '& .bg-floating-circle-3': {
-        position: 'fixed',
-        bottom: '25%',
-        left: '70%',
-        width: '320px',
-        height: '320px',
-        borderRadius: '50%',
-        background: `radial-gradient(circle at 20% 80%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.28)' : 'rgba(234, 179, 8, 0.16)'} 0%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.10)' : 'rgba(234, 179, 8, 0.05)'} 45%, transparent 70%)`,
-        filter: 'blur(90px)',
-        animation: 'float2 35s infinite ease-in-out',
-        animationDelay: '15s',
-        zIndex: -1,
-        opacity: 0.7,
-      },
-
-      '& .bg-floating-circle-4': {
-        position: 'fixed',
-        top: '40%',
-        left: '50%',
-        width: '160px',
-        height: '160px',
-        borderRadius: '50%',
-        background: `radial-gradient(circle at 50% 50%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.25)' : 'rgba(234, 179, 8, 0.14)'} 0%, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.08)' : 'rgba(234, 179, 8, 0.04)'} 60%, transparent 70%)`,
-        filter: 'blur(50px)',
-        animation: 'drift 20s infinite ease-in-out reverse',
-        animationDelay: '5s',
-        zIndex: -1,
-        opacity: 0.85,
-      },
-
-      // Geometric floating shapes
-      '& .bg-floating-hexagon': {
-        position: 'fixed',
-        top: '20%',
-        right: '30%',
-        width: '120px',
-        height: '120px',
-        clipPath: 'polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%)',
-        background: `linear-gradient(45deg, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.22)' : 'rgba(234, 179, 8, 0.12)'}, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.08)' : 'rgba(234, 179, 8, 0.04)'})`,
-        filter: 'blur(30px)',
-        animation: 'float3 28s infinite ease-in-out',
-        animationDelay: '12s',
-        zIndex: -1,
-        opacity: 0.6,
-      },
-
-      '& .bg-floating-triangle': {
-        position: 'fixed',
-        bottom: '40%',
-        right: '20%',
-        width: '100px',
-        height: '100px',
-        clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-        background: `linear-gradient(135deg, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.25)' : 'rgba(234, 179, 8, 0.15)'}, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.06)' : 'rgba(234, 179, 8, 0.03)'})`,
-        filter: 'blur(25px)',
-        animation: 'drift 24s infinite ease-in-out reverse',
-        animationDelay: '18s',
-        zIndex: -1,
-        opacity: 0.75,
-      },
-
-      '& .bg-floating-diamond': {
-        position: 'fixed',
-        bottom: '60%',
-        left: '25%',
-        width: '80px',
-        height: '80px',
-        clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
-        background: `linear-gradient(45deg, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.20)' : 'rgba(234, 179, 8, 0.11)'}, ${props.colorMode === 'dark' ? 'rgba(234, 179, 8, 0.05)' : 'rgba(234, 179, 8, 0.02)'})`,
-        filter: 'blur(20px)',
-        animation: 'float1 22s infinite ease-in-out',
-        animationDelay: '3s',
-        zIndex: -1,
-        opacity: 0.8,
-      },
       '::selection': {
         bg: props.colorMode === 'dark' ? 'accent.700' : 'accent.200',
-        color: props.colorMode === 'dark' ? 'text.inverse' : 'text.primary',
-        textShadow: props.colorMode === 'dark'
-          ? '0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.6), 0 4px 8px rgba(0, 0, 0, 0.5)'
-          : '0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(15, 23, 42, 0.15), 0 4px 8px rgba(15, 23, 42, 0.1)',
-        filter: 'drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1))',
-        transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        color: props.colorMode === 'dark' ? 'white' : 'text.primary',
       },
     }),
   },
   config: {
-    initialColorMode: 'system',
-    useSystemColorMode: true,
+    initialColorMode: 'dark',
+    useSystemColorMode: false,
   },
   components: {
     Container: {
-      baseStyle: (props: StyleFunctionProps) => ({
+      baseStyle: {
         maxW: 'container.xl',
-        px: { base: 4, sm: 6, md: 8, lg: 12 },
-      }),
+        px: { base: 5, sm: 6, md: 8, lg: 12 },
+      },
     },
     Heading: {
       baseStyle: {
         fontFamily: 'heading',
-        fontWeight: 'semibold',
-        letterSpacing: '-0.025em',
-        lineHeight: 'heading',
-        color: 'text.primary',
+        fontWeight: 'bold',
+        letterSpacing: '-0.02em',
+        lineHeight: 1.1,
       },
       sizes: {
         '4xl': {
-          fontSize: { base: '2.5rem', md: '3rem', lg: '4rem' },
-          lineHeight: '0.875',
-          fontWeight: 'bold',
+          fontSize: { base: '3rem', md: '4rem', lg: '5.5rem' },
+          lineHeight: 0.95,
+          fontWeight: 'black',
+          letterSpacing: '-0.03em',
         },
         '3xl': {
-          fontSize: { base: '2rem', md: '2.5rem', lg: '3rem' },
-          lineHeight: '1',
+          fontSize: { base: '2rem', md: '2.75rem', lg: '3.5rem' },
+          lineHeight: 1,
           fontWeight: 'bold',
         },
         '2xl': {
-          fontSize: { base: '1.75rem', md: '2rem', lg: '2.5rem' },
-          lineHeight: '1.1',
-          fontWeight: 'bold',
+          fontSize: { base: '1.75rem', md: '2.25rem', lg: '2.75rem' },
+          lineHeight: 1.1,
         },
         xl: {
           fontSize: { base: '1.5rem', md: '1.75rem', lg: '2rem' },
-          lineHeight: '1.2',
-          fontWeight: 'semibold',
+          lineHeight: 1.2,
         },
         lg: {
           fontSize: { base: '1.25rem', md: '1.5rem' },
-          lineHeight: '1.25',
-          fontWeight: 'semibold',
+          lineHeight: 1.25,
         },
       },
     },
@@ -371,79 +236,80 @@ const theme = extendTheme({
       }),
     },
     Button: {
-      baseStyle: (props: StyleFunctionProps) => ({
-        fontWeight: 'medium',
-        borderRadius: 'xl',
-        fontFamily: 'heading',
-        transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-        bg: props.colorMode === 'dark' ? 'gray.700' : 'gray.800',
-        color: props.colorMode === 'dark' ? 'text.inverse' : 'white',
-        _hover: {
-          bg: props.colorMode === 'dark' ? 'gray.600' : 'gray.900',
-          transform: 'translateY(-1px)',
-          boxShadow: props.colorMode === 'dark' ? '0 4px 6px rgba(0,0,0,0.3)' : 'md',
-        },
-      }),
+      baseStyle: {
+        fontWeight: 'semibold',
+        borderRadius: 'full',
+        fontFamily: 'body',
+        letterSpacing: '-0.01em',
+      },
       sizes: {
         lg: {
-          px: 8,
+          px: 10,
           py: 4,
           minH: 14,
-          fontSize: 'lg',
-          fontWeight: 'semibold',
+          fontSize: 'md',
         },
         md: {
-          px: 6,
+          px: 7,
           py: 3,
           minH: 12,
-          fontSize: 'md',
+          fontSize: 'sm',
+        },
+        sm: {
+          px: 5,
+          py: 2,
+          minH: 9,
+          fontSize: 'xs',
         },
       },
       variants: {
-        solid: {
-          bg: 'accent.600',
-          color: 'white',
+        solid: (props: StyleFunctionProps) => ({
+          bg: props.colorMode === 'dark' ? 'white' : 'brand.900',
+          color: props.colorMode === 'dark' ? 'brand.900' : 'white',
           _hover: {
-            bg: 'accent.700',
-            transform: 'translateY(-1px)',
-            boxShadow: 'md',
+            bg: props.colorMode === 'dark' ? 'brand.200' : 'brand.800',
+            transform: 'translateY(-2px)',
+            boxShadow: 'lg',
           },
-        },
+        }),
         outline: (props: StyleFunctionProps) => ({
-          border: '1px solid',
-          borderColor: props.colorMode === 'dark' ? 'gray.600' : 'gray.400',
+          border: '2px solid',
+          borderColor: props.colorMode === 'dark' ? 'whiteAlpha.300' : 'brand.300',
           color: props.colorMode === 'dark' ? 'text.inverse' : 'text.primary',
           bg: 'transparent',
           _hover: {
-            bg: props.colorMode === 'dark' ? 'gray.700' : 'gray.100',
-            borderColor: 'accent.600',
-            transform: 'translateY(-1px)',
+            bg: props.colorMode === 'dark' ? 'whiteAlpha.100' : 'brand.100',
+            borderColor: props.colorMode === 'dark' ? 'whiteAlpha.500' : 'brand.500',
+            transform: 'translateY(-2px)',
           },
         }),
         ghost: (props: StyleFunctionProps) => ({
           bg: 'transparent',
           color: props.colorMode === 'dark' ? 'text.inverse' : 'text.secondary',
           _hover: {
-            bg: props.colorMode === 'dark' ? 'gray.700' : 'gray.100',
+            bg: props.colorMode === 'dark' ? 'whiteAlpha.100' : 'blackAlpha.50',
           },
         }),
-      },
-    },
-    Badge: {
-      baseStyle: (props: StyleFunctionProps) => ({
-        borderRadius: 'full',
-        fontWeight: 'medium',
-        px: 3,
-        py: 1,
-        bg: props.colorMode === 'dark' ? 'gray.700' : 'gray.200',
-        color: props.colorMode === 'dark' ? 'text.inverse' : 'text.primary',
-        fontSize: 'xs',
-      }),
-      variants: {
         accent: {
           bg: 'accent.600',
           color: 'white',
+          _hover: {
+            bg: 'accent.700',
+            transform: 'translateY(-2px)',
+            boxShadow: '0 8px 25px rgba(17, 119, 255, 0.3)',
+          },
         },
+      },
+    },
+    Badge: {
+      baseStyle: {
+        borderRadius: 'full',
+        fontWeight: 'medium',
+        fontFamily: 'body',
+        px: 3,
+        py: 1,
+        fontSize: 'xs',
+        textTransform: 'none',
       },
     },
     Link: {
@@ -454,6 +320,34 @@ const theme = extendTheme({
           textDecoration: 'none',
         },
       }),
+    },
+    Input: {
+      defaultProps: {
+        focusBorderColor: 'accent.500',
+      },
+      variants: {
+        outline: (props: StyleFunctionProps) => ({
+          field: {
+            borderRadius: 'xl',
+            borderColor: props.colorMode === 'dark' ? 'whiteAlpha.200' : 'brand.300',
+            bg: props.colorMode === 'dark' ? 'whiteAlpha.50' : 'white',
+            _hover: { borderColor: props.colorMode === 'dark' ? 'whiteAlpha.400' : 'brand.400' },
+          },
+        }),
+      },
+    },
+    Textarea: {
+      defaultProps: {
+        focusBorderColor: 'accent.500',
+      },
+      variants: {
+        outline: (props: StyleFunctionProps) => ({
+          borderRadius: 'xl',
+          borderColor: props.colorMode === 'dark' ? 'whiteAlpha.200' : 'brand.300',
+          bg: props.colorMode === 'dark' ? 'whiteAlpha.50' : 'white',
+          _hover: { borderColor: props.colorMode === 'dark' ? 'whiteAlpha.400' : 'brand.400' },
+        }),
+      },
     },
   },
 });

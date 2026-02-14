@@ -1,6 +1,7 @@
 import {
   Box,
   Flex,
+  HStack,
   useColorModeValue,
   useColorMode,
   IconButton,
@@ -26,42 +27,50 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const bgBlur = useColorModeValue(
-    'rgba(255, 255, 255, 0.85)',
-    'rgba(0, 0, 0, 0.85)'
+  const pillBg = useColorModeValue(
+    'rgba(255, 255, 255, 0.75)',
+    'rgba(18, 17, 16, 0.75)'
   )
-  const borderColor = useColorModeValue('brand.200', 'brand.950')
+  const pillBorder = useColorModeValue(
+    'rgba(0, 0, 0, 0.08)',
+    'rgba(255, 255, 255, 0.08)'
+  )
+  const textColor = useColorModeValue('text.primary', 'text.inverse')
+  const hoverBg = useColorModeValue('blackAlpha.50', 'whiteAlpha.100')
 
   return (
     <MotionBox
       position="fixed"
-      w="100%"
+      top={isScrolled ? '12px' : '16px'}
+      left="50%"
+      transform="translateX(-50%)"
       zIndex={1000}
-      initial={{ y: -80 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      sx={{
-        backdropFilter: isScrolled ? 'blur(20px)' : 'none',
-        backgroundColor: isScrolled ? bgBlur : 'transparent',
-        borderBottom: isScrolled ? `1px solid ${borderColor}` : 'none',
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      }}
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <Flex
-        maxW="1200px"
-        mx="auto"
-        px={8}
-        h={16}
+      <MotionFlex
         alignItems="center"
-        justifyContent="space-between"
+        gap={{ base: 1, md: 2 }}
+        px={{ base: 3, md: 6 }}
+        py={2}
+        borderRadius="full"
+        bg={pillBg}
+        border="1px solid"
+        borderColor={pillBorder}
+        boxShadow={isScrolled
+          ? '0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08)'
+          : '0 4px 16px rgba(0, 0, 0, 0.06)'
+        }
+        backdropFilter="blur(20px) saturate(180%)"
+        transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
       >
+        {/* Logo / Name */}
         <ScrollLink
           to="hero"
           spy={true}
@@ -69,28 +78,34 @@ export default function Navbar() {
           duration={500}
           style={{ cursor: 'pointer' }}
         >
-          <MotionBox
-            fontWeight="medium"
-            fontSize="lg"
-            color={useColorModeValue('text.primary', 'text.inverse')}
-            _hover={{
-              opacity: 0.7
-            }}
-            transition={{ duration: 0.2 }}
+          <Box
+            fontWeight="700"
+            fontSize="sm"
+            fontFamily="heading"
+            color={textColor}
+            px={3}
+            py={1}
+            borderRadius="full"
+            _hover={{ opacity: 0.7 }}
+            letterSpacing="-0.01em"
+            whiteSpace="nowrap"
           >
-            Vishwa Kumar
-          </MotionBox>
+            VK
+          </Box>
         </ScrollLink>
 
-        <MotionFlex
-          direction="row"
-          spacing={{ base: 4, md: 8 }}
-          alignItems="center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          {navItems.map((item, index) => (
+        {/* Divider dot */}
+        <Box
+          w="4px"
+          h="4px"
+          borderRadius="full"
+          bg={useColorModeValue('blackAlpha.200', 'whiteAlpha.300')}
+          display={{ base: 'none', md: 'block' }}
+        />
+
+        {/* Nav Items */}
+        <HStack spacing={0} display={{ base: 'none', md: 'flex' }}>
+          {navItems.map((item) => (
             <ScrollLink
               key={item.to}
               to={item.to}
@@ -99,40 +114,35 @@ export default function Navbar() {
               duration={500}
               offset={-80}
             >
-              <MotionBox
-                px={4}
-                py={2}
+              <Box
+                px={3}
+                py={1.5}
                 fontSize="sm"
-                fontWeight="medium"
-                color={useColorModeValue('text.primary', 'text.inverse')}
+                fontWeight="500"
+                color={textColor}
                 cursor="pointer"
-                borderRadius="md"
-                _hover={{
-                  bg: useColorModeValue('gray.100', 'gray.800'),
-                  color: useColorModeValue('text.primary', 'text.inverse'),
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                borderRadius="full"
+                _hover={{ bg: hoverBg }}
                 whiteSpace="nowrap"
               >
                 {item.label}
-              </MotionBox>
+              </Box>
             </ScrollLink>
           ))}
-          <IconButton
-            aria-label="Toggle color mode"
-            icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-            onClick={toggleColorMode}
-            variant="ghost"
-            size="md"
-            color={useColorModeValue('text.primary', 'text.inverse')}
-            _hover={{
-              bg: useColorModeValue('brand.200', 'brand.900'),
-            }}
-          />
-        </MotionFlex>
-      </Flex>
+        </HStack>
+
+        {/* Theme Toggle */}
+        <IconButton
+          aria-label="Toggle color mode"
+          icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+          onClick={toggleColorMode}
+          variant="ghost"
+          size="sm"
+          borderRadius="full"
+          color={textColor}
+          _hover={{ bg: hoverBg }}
+        />
+      </MotionFlex>
     </MotionBox>
   )
 }

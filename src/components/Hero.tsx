@@ -7,228 +7,229 @@ import {
   Icon,
   useColorModeValue,
   Box,
-  Badge,
   Button,
   Flex,
   IconButton,
 } from '@chakra-ui/react'
-import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaPhone, FaDownload, FaChevronDown } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 
 const MotionBox = motion(Box)
-const MotionVStack = motion(VStack)
-const MotionHeading = motion(Heading)
-const MotionHStack = motion(HStack)
+const MotionFlex = motion(Flex)
 
 export default function Hero() {
   const textColor = useColorModeValue('text.primary', 'text.inverse')
-  const subTextColor = useColorModeValue('text.secondary', 'text.inverse')
-  const bgGradient = useColorModeValue(
-    'linear(to-br, brand.25, brand.100)',
-    'linear(to-br, brand.900, brand.800)'
+  const mutedColor = useColorModeValue('text.secondary', 'text.muted')
+  const accentGradient = useColorModeValue(
+    'linear-gradient(135deg, #0a5fef 0%, #7c3aed 50%, #f97316 100%)',
+    'linear-gradient(135deg, #51b8ff 0%, #a78bfa 50%, #fb923c 100%)'
   )
 
   return (
     <Flex
-      bg={bgGradient}
-      px={{ base: 4, sm: 6, md: 8 }}
+      id="hero"
       minHeight="100vh"
       position="relative"
       overflow="hidden"
       justifyContent="center"
       alignItems="center"
+      px={{ base: 6, md: 12 }}
     >
-      <MotionVStack
-        spacing={5}
-        maxW="7xl"
+      {/* Background gradient orbs */}
+      <Box
+        position="absolute"
+        top="-20%"
+        right="-10%"
+        w={{ base: '300px', md: '600px' }}
+        h={{ base: '300px', md: '600px' }}
+        borderRadius="full"
+        bg={useColorModeValue(
+          'radial-gradient(circle, rgba(81,184,255,0.15) 0%, transparent 70%)',
+          'radial-gradient(circle, rgba(81,184,255,0.08) 0%, transparent 70%)'
+        )}
+        filter="blur(60px)"
+        pointerEvents="none"
+      />
+      <Box
+        position="absolute"
+        bottom="-10%"
+        left="-15%"
+        w={{ base: '250px', md: '500px' }}
+        h={{ base: '250px', md: '500px' }}
+        borderRadius="full"
+        bg={useColorModeValue(
+          'radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%)',
+          'radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 70%)'
+        )}
+        filter="blur(60px)"
+        pointerEvents="none"
+      />
+
+      <VStack
+        spacing={{ base: 6, md: 8 }}
+        maxW="5xl"
         w="full"
         align="center"
         textAlign="center"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        zIndex={1}
       >
-        {/* Profile Image and Basic Info */}
-
-        {/* Main Heading */}
-        {/* Name and Title */}
-        <MotionVStack
-          spacing={3}
+        {/* Tagline pill */}
+        <MotionBox
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <MotionHeading
-            as="h1"
-            fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
-            fontFamily="heading"
-            fontWeight="700"
-            color={textColor}
-            lineHeight="0.9"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            Vishwa Kumar S
-          </MotionHeading>
-
-          <Text
-            fontSize={{ base: "xl", md: "2xl" }}
-            color="accent.600"
+          <Box
+            px={5}
+            py={2}
+            borderRadius="full"
+            border="1px solid"
+            borderColor={useColorModeValue('brand.300', 'whiteAlpha.200')}
+            bg={useColorModeValue('white', 'whiteAlpha.50')}
+            fontSize="sm"
             fontWeight="500"
-            fontFamily="mono"
+            color={mutedColor}
+            display="inline-flex"
+            alignItems="center"
+            gap={2}
           >
-            Backend Developer & AI Enthusiast
-          </Text>
-        </MotionVStack>
+            <Box w="6px" h="6px" borderRadius="full" bg="emerald.400" />
+            Available for opportunities
+          </Box>
+        </MotionBox>
 
-        {/* Compelling Elevator Pitch - Authority & Value Proposition */}
+        {/* Main Heading */}
         <MotionBox
-          maxW="4xl"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+        >
+          <Heading
+            as="h1"
+            fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }}
+            fontFamily="heading"
+            fontWeight="900"
+            color={textColor}
+            lineHeight={0.95}
+            letterSpacing="-0.03em"
+          >
+            Hi, I'm{' '}
+            <Box
+              as="span"
+              bgGradient={accentGradient}
+              bgClip="text"
+              sx={{ WebkitTextFillColor: 'transparent' }}
+            >
+              Vishwa
+            </Box>
+          </Heading>
+        </MotionBox>
+
+        {/* Subtitle */}
+        <MotionBox
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          maxW="3xl"
+        >
+          <Text
+            fontSize={{ base: 'lg', md: 'xl' }}
+            color={mutedColor}
+            lineHeight={1.7}
+          >
+            A backend developer & AI enthusiast turning complex systems into{' '}
+            <Box as="span" fontFamily="heading" fontStyle="italic" fontWeight="600" color={textColor}>
+              elegant, scalable solutions
+            </Box>
+            . Currently building intelligent automation at Ramco Systems.
+          </Text>
+        </MotionBox>
+
+        {/* CTA Buttons */}
+        <MotionFlex
+          gap={4}
+          flexWrap="wrap"
+          justify="center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <Text
-            fontSize={{ base: "lg", md: "xl" }}
-            color={subTextColor}
-            fontFamily="body"
-            lineHeight="1.6"
-            mb={4}
-          >
-            Passionate CS student transforming complex backend architectures and AI systems into
-            scalable solutions. Currently accelerating development cycles at <strong>Ramco Systems</strong> through
-            intelligent automation, while exploring cutting-edge AI applications for real-world impact.
-          </Text>
-
-          {/* Social Proof - Quick Stats */}
-          <Flex
-            justify="center"
-            wrap="wrap"
-            gap={6}
-            mb={6}
-            fontSize={{ base: "sm", md: "md" }}
-            color={subTextColor}
-          >
-            <HStack spacing={1}>
-              <Icon as={FaMapMarkerAlt} w={4} h={4} color="accent.600" />
-              <Text>Chennai, Tamil Nadu</Text>
-            </HStack>
-            <HStack spacing={1}>
-              <Text fontWeight="bold" color="accent.600">3+ Major Projects</Text>
-              <Text>AI & Backend Focus</Text>
-            </HStack>
-          </Flex>
-        </MotionBox>
-
-        {/* RECIPROCITY PRINCIPLE - Prominent Contact Info Upfront */}
-        <MotionBox
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
-        >
-          <VStack spacing={3}>
-            <HStack spacing={4} justify="center" flexWrap="wrap">
-              {/* Direct Contact Buttons - Primary CTAs */}
-              <Button
-                leftIcon={<FaEnvelope />}
-                colorScheme="accent"
-                variant="solid"
-                size={{ base: "md", md: "lg" }}
-                as={Link}
-                href="mailto:vishwakumar.petit@gmail.com"
-                _hover={{ transform: 'translateY(-2px)', boxShadow: 'lg' }}
-                transition="all 0.3s"
-              >
-                vishwakumar.petit@gmail.com
-              </Button>
-
-              <Button
-                leftIcon={<FaPhone />}
-                colorScheme="accent"
-                variant="outline"
-                size={{ base: "md", md: "lg" }}
-                as={Link}
-                href="tel:+919488321830"
-                _hover={{ transform: 'translateY(-2px)', boxShadow: 'lg' }}
-                transition="all 0.3s"
-              >
-                +91 9488321830
-              </Button>
-            </HStack>
-          </VStack>
-        </MotionBox>
-
-        {/* Social Links - Secondary CTAs */}
-        <MotionHStack
-          spacing={6}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-        >
-          <IconButton
-            as={Link}
-            href="https://github.com/yourusername"
-            isExternal
-            aria-label="GitHub Profile"
-            icon={<FaGithub />}
-            variant="ghost"
-            size="lg"
-            _hover={{ color: 'accent.600', transform: 'scale(1.1)' }}
-            transition="all 0.3s"
-          />
-
-          <IconButton
-            as={Link}
-            href="https://linkedin.com/in/yourusername"
-            isExternal
-            aria-label="LinkedIn Profile"
-            icon={<FaLinkedin />}
-            variant="ghost"
-            size="lg"
-            _hover={{ color: 'accent.600', transform: 'scale(1.1)' }}
-            transition="all 0.3s"
-          />
-
-          <IconButton
+          <Button
             as={Link}
             href="mailto:vishwakumar.petit@gmail.com"
-            aria-label="Send Email"
-            icon={<FaEnvelope />}
-            variant="ghost"
+            variant="accent"
             size="lg"
-            _hover={{ color: 'accent.600', transform: 'scale(1.1)' }}
-            transition="all 0.3s"
-          />
-        </MotionHStack>
+            leftIcon={<FaEnvelope />}
+            _hover={{ textDecoration: 'none' }}
+          >
+            Get in touch
+          </Button>
+          <Button
+            as={Link}
+            href="https://github.com/iam-VK"
+            isExternal
+            variant="outline"
+            size="lg"
+            leftIcon={<FaGithub />}
+            _hover={{ textDecoration: 'none' }}
+          >
+            View GitHub
+          </Button>
+        </MotionFlex>
 
-        {/* Scroll Indicator */}
+        {/* Social Icons */}
         <MotionBox
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.5 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
+        >
+          <HStack spacing={4}>
+            {[
+              { icon: FaGithub, href: 'https://github.com/iam-VK', label: 'GitHub' },
+              { icon: FaLinkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
+              { icon: FaEnvelope, href: 'mailto:vishwakumar.petit@gmail.com', label: 'Email' },
+            ].map((social) => (
+              <IconButton
+                key={social.label}
+                as={Link}
+                href={social.href}
+                isExternal={social.href.startsWith('http')}
+                aria-label={social.label}
+                icon={<Icon as={social.icon} />}
+                variant="ghost"
+                size="lg"
+                borderRadius="full"
+                color={mutedColor}
+                _hover={{
+                  color: textColor,
+                  bg: useColorModeValue('blackAlpha.50', 'whiteAlpha.100'),
+                }}
+              />
+            ))}
+          </HStack>
+        </MotionBox>
+
+        {/* Scroll indicator */}
+        <MotionBox
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ duration: 0.6, delay: 1.3 }}
           mt={8}
         >
-          <VStack spacing={2} opacity={0.7}>
-            <Text fontSize="xs" color={subTextColor} letterSpacing="wider">
-              SCROLL TO EXPLORE
+          <VStack spacing={2}>
+            <Text fontSize="xs" letterSpacing="0.15em" textTransform="uppercase" color={mutedColor}>
+              Scroll
             </Text>
             <Box
               as={motion.div}
-              animate={{
-                y: [0, 8, 0],
-                transition: {
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }
-              }}
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" } as any}
             >
-              <Icon as={FaChevronDown} w={4} h={4} color="accent.600" />
+              <Icon as={FaArrowDown} w={3} h={3} color={mutedColor} />
             </Box>
           </VStack>
         </MotionBox>
-      </MotionVStack>
+      </VStack>
     </Flex>
   )
 }

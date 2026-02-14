@@ -17,7 +17,7 @@ This portfolio implements Cialdini's principles of persuasion:
 ### Development (Default Port: 5173)
 ```bash
 npm install
-npm run dev
+npm run dev{}
 ```
 
 ### Production HTTP (Port 80)

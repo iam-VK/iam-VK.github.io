@@ -1,7 +1,6 @@
-import { Box, VStack, useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import QuickStats from './components/QuickStats';
 import About from './components/About';
 import Education from './components/Education';
 import Skills from './components/Skills';
@@ -10,17 +9,34 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
-function App() {
-  const bgColor = useColorModeValue('brand.50', 'brand.990');
+// Wavy section separator SVG
+const WaveDivider = ({ flip = false, color }: { flip?: boolean; color: string }) => (
+  <Box
+    as="div"
+    w="100%"
+    overflow="hidden"
+    lineHeight={0}
+    transform={flip ? 'rotate(180deg)' : undefined}
+    mt={flip ? '-1px' : undefined}
+    mb={!flip ? '-1px' : undefined}
+  >
+    <svg
+      viewBox="0 0 1200 120"
+      preserveAspectRatio="none"
+      style={{ width: '100%', height: '60px', display: 'block' }}
+    >
+      <path
+        d="M0,0 C150,80 350,0 500,40 C650,80 800,20 1000,60 C1100,80 1150,40 1200,50 L1200,120 L0,120 Z"
+        fill={color}
+      />
+    </svg>
+  </Box>
+);
 
-  // Skip link for accessibility
-  const skipToMain = () => {
-    const main = document.querySelector('main');
-    if (main) {
-      main.focus();
-      main.scrollIntoView();
-    }
-  };
+function App() {
+  const bgColor = useColorModeValue('brand.50', 'brand.950');
+  const sectionBg = useColorModeValue('#f0efe9', '#18171a');
+  const mainBg = useColorModeValue('#f6f6f2', '#121110');
 
   return (
     <Box
@@ -33,7 +49,10 @@ function App() {
       {/* Skip Link for Accessibility */}
       <Box
         as="button"
-        onClick={skipToMain}
+        onClick={() => {
+          const main = document.querySelector('main');
+          if (main) { main.focus(); main.scrollIntoView(); }
+        }}
         position="absolute"
         top="-40px"
         left="6"
@@ -41,54 +60,18 @@ function App() {
         color="white"
         px={4}
         py={2}
-        borderRadius="md"
+        borderRadius="full"
         fontSize="sm"
         fontWeight="medium"
-        zIndex={1000}
-        _focus={{
-          top: "6",
-          outline: "2px solid",
-          outlineColor: "accent.300"
-        }}
-        _hover={{
-          bg: "accent.700"
-        }}
+        zIndex={10000}
+        _focus={{ top: "6", outline: "2px solid", outlineColor: "accent.300" }}
+        _hover={{ bg: "accent.700" }}
         transition="top 0.3s"
       >
         Skip to main content
       </Box>
 
-      {/* Animated background elements - Hidden from screen readers */}
-      <Box
-        className="bg-floating-circle"
-        aria-hidden="true"
-      />
-      <Box
-        className="bg-floating-circle-2"
-        aria-hidden="true"
-      />
-      <Box
-        className="bg-floating-circle-3"
-        aria-hidden="true"
-      />
-      <Box
-        className="bg-floating-circle-4"
-        aria-hidden="true"
-      />
-      <Box
-        className="bg-floating-hexagon"
-        aria-hidden="true"
-      />
-      <Box
-        className="bg-floating-triangle"
-        aria-hidden="true"
-      />
-      <Box
-        className="bg-floating-diamond"
-        aria-hidden="true"
-      />
-
-      {/* Header - Navigation */}
+      {/* Navigation */}
       <Box as="header" role="banner">
         <Navbar />
       </Box>
@@ -102,46 +85,55 @@ function App() {
         zIndex={1}
         tabIndex={-1}
         outline="none"
-        _focus={{
-          outline: "2px solid",
-          outlineColor: "accent.500"
-        }}
         aria-label="Main portfolio content"
       >
-        {/* Hero Section - Introduction */}
+        {/* Hero Section */}
         <Box as="section" aria-labelledby="hero-heading">
           <Hero />
         </Box>
 
-        {/* Quick Stats Section */}
-        <Box as="section" aria-labelledby="stats-heading">
-          <QuickStats />
-        </Box>
+        {/* Wave into About */}
+        <WaveDivider color={sectionBg} />
 
         {/* About Section */}
-        <Box as="section" aria-labelledby="about-heading">
+        <Box as="section" aria-labelledby="about-heading" bg={sectionBg}>
           <About />
         </Box>
+
+        {/* Wave back */}
+        <WaveDivider flip color={mainBg} />
 
         {/* Education Section */}
         <Box as="section" aria-labelledby="education-heading">
           <Education />
         </Box>
 
+        {/* Wave into Skills */}
+        <WaveDivider color={sectionBg} />
+
         {/* Skills Section */}
-        <Box as="section" aria-labelledby="skills-heading">
+        <Box as="section" aria-labelledby="skills-heading" bg={sectionBg}>
           <Skills />
         </Box>
+
+        {/* Wave back */}
+        <WaveDivider flip color={mainBg} />
 
         {/* Experience Section */}
         <Box as="section" aria-labelledby="experience-heading">
           <Experience />
         </Box>
 
+        {/* Wave into Projects */}
+        <WaveDivider color={sectionBg} />
+
         {/* Projects Section */}
-        <Box as="section" aria-labelledby="projects-heading">
+        <Box as="section" aria-labelledby="projects-heading" bg={sectionBg}>
           <Projects />
         </Box>
+
+        {/* Wave back */}
+        <WaveDivider flip color={mainBg} />
 
         {/* Contact Section */}
         <Box as="section" aria-labelledby="contact-heading">
