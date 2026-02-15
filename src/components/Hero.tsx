@@ -12,6 +12,7 @@ import {
   IconButton,
 } from '@chakra-ui/react'
 import { FaGithub, FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa'
+import { SITE_CONFIG } from '../config'
 import { motion } from 'framer-motion'
 
 const MotionBox = motion(Box)
@@ -120,7 +121,7 @@ export default function Hero() {
               bgClip="text"
               sx={{ WebkitTextFillColor: 'transparent' }}
             >
-              Vishwa
+              {SITE_CONFIG.name}
             </Box>
           </Heading>
         </MotionBox>
@@ -156,7 +157,7 @@ export default function Hero() {
         >
           <Button
             as={Link}
-            href="mailto:vishwakumar.petit@gmail.com"
+            href={SITE_CONFIG.mailtoLink}
             variant="accent"
             size="lg"
             leftIcon={<FaEnvelope />}
@@ -166,7 +167,7 @@ export default function Hero() {
           </Button>
           <Button
             as={Link}
-            href="https://github.com/iam-VK"
+            href={SITE_CONFIG.github}
             isExternal
             variant="outline"
             size="lg"
@@ -185,9 +186,9 @@ export default function Hero() {
         >
           <HStack spacing={4}>
             {[
-              { icon: FaGithub, href: 'https://github.com/iam-VK', label: 'GitHub' },
-              { icon: FaLinkedin, href: 'https://linkedin.com/in/vishwakumar-s', label: 'LinkedIn' },
-              { icon: FaEnvelope, href: 'mailto:vishwakumar.petit@gmail.com', label: 'Email' },
+              { icon: FaGithub, href: SITE_CONFIG.github, label: 'GitHub' },
+              { icon: FaLinkedin, href: SITE_CONFIG.linkedin, label: 'LinkedIn' },
+              { icon: FaEnvelope, href: SITE_CONFIG.mailtoLink, label: 'Email' },
             ].map((social) => (
               <IconButton
                 key={social.label}

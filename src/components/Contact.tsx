@@ -28,6 +28,7 @@ import {
   FaPhone,
   FaPaperPlane,
 } from 'react-icons/fa'
+import { SITE_CONFIG } from '../config'
 
 const MotionBox = motion(Box)
 
@@ -178,7 +179,7 @@ export default function Contact() {
 
                   <Button
                     as={Link}
-                    href="mailto:vishwakumar.petit@gmail.com"
+                    href={SITE_CONFIG.mailtoLink}
                     leftIcon={<FaEnvelope />}
                     variant="outline"
                     w="full"
@@ -186,12 +187,12 @@ export default function Contact() {
                     size="md"
                     _hover={{ textDecoration: 'none' }}
                   >
-                    vishwakumar.petit@gmail.com
+                    {SITE_CONFIG.email}
                   </Button>
 
                   <Button
                     as={Link}
-                    href="tel:+919488321830"
+                    href={SITE_CONFIG.telLink}
                     leftIcon={<FaPhone />}
                     variant="outline"
                     w="full"
@@ -199,7 +200,7 @@ export default function Contact() {
                     size="md"
                     _hover={{ textDecoration: 'none' }}
                   >
-                    +91 9488321830
+                    {SITE_CONFIG.phoneDisplay}
                   </Button>
                 </VStack>
 
@@ -219,9 +220,9 @@ export default function Contact() {
                   </Text>
                   <HStack spacing={3}>
                     {[
-                      { icon: FaGithub, href: 'https://github.com/iam-VK', label: 'GitHub' },
-                      { icon: FaLinkedin, href: 'https://linkedin.com/in/vishwakumar-s', label: 'LinkedIn' },
-                      { icon: FaEnvelope, href: 'mailto:vishwakumar.petit@gmail.com', label: 'Email' },
+                      { icon: FaGithub, href: SITE_CONFIG.github, label: 'GitHub' },
+                      { icon: FaLinkedin, href: SITE_CONFIG.linkedin, label: 'LinkedIn' },
+                      { icon: FaEnvelope, href: SITE_CONFIG.mailtoLink, label: 'Email' },
                     ].map((s) => (
                       <IconButton
                         key={s.label}
