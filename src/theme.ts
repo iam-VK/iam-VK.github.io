@@ -3,16 +3,16 @@ import { extendTheme, type StyleFunctionProps } from '@chakra-ui/react';
 const theme = extendTheme({
   colors: {
     brand: {
-      50: '#f6f6f2',   // Arc warm cream
-      100: '#eeedea',
-      200: '#dddbd6',
-      300: '#c8c5be',
-      400: '#a8a49c',
-      500: '#87837a',
-      600: '#6b675f',
-      700: '#504d47',
-      800: '#363430',
-      900: '#1e1d1a',
+      50: '#fafafa',    // Clean near-white
+      100: '#f5f5f4',   // Subtle warm gray
+      200: '#e7e5e4',
+      300: '#d6d3d1',
+      400: '#a8a29e',
+      500: '#78716c',
+      600: '#57534e',
+      700: '#44403c',
+      800: '#292524',
+      900: '#1c1917',
       950: '#121110',
       980: '#0a0a09',
       990: '#050504',
@@ -70,11 +70,11 @@ const theme = extendTheme({
       900: '#064e3b',
     },
     text: {
-      primary: '#1e1d1a',
-      secondary: '#6b675f',
-      tertiary: '#a8a49c',
-      inverse: '#f6f6f2',
-      muted: 'rgba(246, 246, 242, 0.6)',
+      primary: '#1c1917',
+      secondary: '#57534e',
+      tertiary: '#a8a29e',
+      inverse: '#fafafa',
+      muted: 'rgba(250, 250, 250, 0.6)',
     },
   },
   fonts: {

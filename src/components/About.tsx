@@ -75,9 +75,10 @@ export default function About() {
               <Box as="span" fontStyle="italic" color="accent.500">into technology</Box>
             </Heading>
             <Text fontSize={{ base: 'md', lg: 'lg' }} color={mutedColor} lineHeight={1.8}>
-              It all started with curiosity about how the internet worked. Today, I'm a CS student at Sathyabama Institute,
-              balancing learning with building real-world applications. My time at Ramco Systems as a Software Development Intern
-              has been transformative—learning that great software isn't just code, but understanding problems deeply.
+              Software Engineer with over a year of experience building production AI pipelines, integrating large language models
+              with scalable backend systems, and developing data-driven solutions. From prototyping conversational AI as an intern
+              to shipping production-grade NLP platforms as an SDE I at Ramco Systems—I'm passionate about solving real-world
+              problems using cutting-edge technologies. 
             </Text>
           </MotionBox>
 
@@ -173,8 +174,8 @@ export default function About() {
                   Ready to build something amazing together?
                 </Text>
                 <Text fontSize="sm" color={mutedColor} lineHeight={1.7}>
-                  As I graduate in 2025, I'm excited about building AI-driven solutions that make
-                  technology more accessible. Let's create solutions that matter.
+                  I'm always looking for opportunities to build AI-driven solutions that make
+                  technology more accessible. Let's create something that matters.
                 </Text>
               </VStack>
             </HStack>

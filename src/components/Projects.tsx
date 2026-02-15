@@ -17,7 +17,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import {
   FaGithub,
-  FaExternalLinkAlt,
+
   FaRobot,
   FaRocket,
   FaChartLine,
@@ -31,7 +31,7 @@ const projects = [
     description: 'Full-stack platform enabling natural language search through video content. Uses computer vision and NLP for transcription, semantic understanding, and real-time search.',
     technologies: ['Vision Transformer', 'SSIM', 'Elasticsearch', 'Flask', 'MySQL', 'React'],
     github: 'https://github.com/iam-VK/video-search',
-    demo: '#',
+
     icon: FaRobot,
     status: 'Production Ready',
     highlight: '500+ daily users · 92% accuracy',
@@ -42,7 +42,7 @@ const projects = [
     description: 'End-to-end video processing pipeline that extracts key moments, generates narrative summaries, and provides multi-language support. Reduces content consumption time by 80%.',
     technologies: ['OpenCV', 'LLMs', 'HuggingFace', 'FFmpeg', 'Python'],
     github: 'https://github.com/iam-VK/video-summarization',
-    demo: '#',
+
     icon: FaRocket,
     status: 'Beta',
     highlight: '95% quality · 200+ org adoption',
@@ -53,7 +53,7 @@ const projects = [
     description: 'Web app analyzing text sentiment in live streams, social media, and customer feedback with multilingual support and visual emotion mapping.',
     technologies: ['FastAPI', 'React', 'WebSocket', 'NLP', 'D3.js'],
     github: 'https://github.com/iam-VK/semantic-analyzer',
-    demo: '#',
+
     icon: FaChartLine,
     status: 'Live',
     highlight: '12 languages · 50+ clients',
@@ -202,17 +202,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           >
             Code
           </Button>
-          <Button
-            as={Link}
-            href={project.demo}
-            isExternal
-            leftIcon={<FaExternalLinkAlt />}
-            size="sm"
-            variant="accent"
-            _hover={{ textDecoration: 'none' }}
-          >
-            Demo
-          </Button>
+
         </HStack>
       </VStack>
     </MotionBox>

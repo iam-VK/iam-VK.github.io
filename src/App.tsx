@@ -35,8 +35,8 @@ const WaveDivider = ({ flip = false, color }: { flip?: boolean; color: string })
 
 function App() {
   const bgColor = useColorModeValue('brand.50', 'brand.950');
-  const sectionBg = useColorModeValue('#f0efe9', '#18171a');
-  const mainBg = useColorModeValue('#f6f6f2', '#121110');
+  const sectionBg = useColorModeValue('#f0efed', '#18171a');
+  const mainBg = useColorModeValue('#fafafa', '#121110');
 
   return (
     <Box
@@ -46,7 +46,7 @@ function App() {
       fontFamily="body"
       position="relative"
     >
-      {/* Skip Link for Accessibility */}
+      {/* Easter Egg – hidden treat for curious Tab-pressers */}
       <Box
         as="button"
         onClick={() => {
@@ -54,21 +54,42 @@ function App() {
           if (main) { main.focus(); main.scrollIntoView(); }
         }}
         position="absolute"
-        top="-40px"
+        top="-60px"
         left="6"
-        bg="accent.600"
+        bgGradient="linear(to-r, accent.500, violet.500, warm.500)"
         color="white"
-        px={4}
-        py={2}
+        px={5}
+        py={2.5}
         borderRadius="full"
         fontSize="sm"
-        fontWeight="medium"
+        fontWeight="bold"
         zIndex={10000}
-        _focus={{ top: "6", outline: "2px solid", outlineColor: "accent.300" }}
-        _hover={{ bg: "accent.700" }}
-        transition="top 0.3s"
+        _focus={{
+          top: "6",
+          outline: "none",
+          boxShadow: "0 0 20px rgba(81,184,255,0.5), 0 0 60px rgba(81,184,255,0.2)",
+          animation: "easterEggPulse 0.6s ease-in-out",
+        }}
+        _hover={{ opacity: 0.9 }}
+        transition="all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)"
+        sx={{
+          '@keyframes easterEggPulse': {
+            '0%': { transform: 'scale(0.8) rotate(-2deg)' },
+            '50%': { transform: 'scale(1.1) rotate(1deg)' },
+            '100%': { transform: 'scale(1) rotate(0deg)' },
+          },
+        }}
+        onFocus={(e: React.FocusEvent<HTMLButtonElement>) => {
+          e.currentTarget.textContent = '🎉 You found me! Have a cookie 🍪';
+          setTimeout(() => {
+            if (e.currentTarget) e.currentTarget.textContent = '✨ Press Enter to jump ahead';
+          }, 3000);
+        }}
+        onBlur={(e: React.FocusEvent<HTMLButtonElement>) => {
+          e.currentTarget.textContent = '✨ Press Enter to jump ahead';
+        }}
       >
-        Skip to main content
+        ✨ Press Enter to jump ahead
       </Box>
 
       {/* Navigation */}

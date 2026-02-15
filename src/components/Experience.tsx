@@ -18,16 +18,31 @@ const MotionBox = motion(Box)
 const experiences = [
   {
     company: 'Ramco Systems',
-    role: 'Software Developer Intern',
-    period: 'Feb. 2025 – Present',
+    role: 'SDE I',
+    period: 'Aug 2025 – Present',
     location: 'Chennai, India',
     highlights: [
-      'Spearheaded AI integrations into legacy systems, eliminating repetitive manual tasks and boosting team productivity.',
-      'Built robust automation pipelines that accelerate testing cycles with 100% automation coverage.',
-      'Maintaining internal automated testing software used by development and QA teams company-wide.',
+      'Built a production-grade conversational data platform that converts natural language into executable database queries across PostgreSQL and MongoDB.',
+      'Designed and implemented the full backend system using FastAPI, AWS Bedrock, and containerized microservices, supporting real-time query generation for non-technical users.',
+      'Engineered an end-to-end NLP pipeline with semantic parsing, validation, and fallback logic, achieving high reliability for complex analytical queries.',
+      'Integrated vector-based semantic search to optimize data retrieval, reducing query latency from seconds to sub-second for large datasets.',
     ],
-    impact: 'Multi-vertical impact across R&D teams. Fun fact: automation tools are now used by teams I\'ve never even met!',
-    technologies: ['Python', 'FastAPI', 'LangChain', 'Amazon Bedrock', 'FAISS', 'Qdrant', 'REST APIs'],
+    impact: 'Deployed scalable Docker-based infrastructure with automated testing, enabling frequent releases and stable production usage.',
+    technologies: ['Python', 'FastAPI', 'AWS Bedrock', 'PostgreSQL', 'MongoDB', 'Docker', 'Vector DBs'],
+  },
+  {
+    company: 'Ramco Systems',
+    role: 'Intern',
+    period: 'Feb 2025 – Jul 2025',
+    location: 'Chennai, India',
+    highlights: [
+      'Developed an AI-powered prototype for conversational data access, which became the technical foundation for a full production system.',
+      'Implemented natural language interfaces for structured databases, allowing business users to retrieve complex information through plain English.',
+      'Researched and evaluated multiple LLM architectures and prompt strategies, focusing on accuracy, cost, and system reliability.',
+      'Maintained and optimized an internal Playwright-based automation platform used by QA teams across multiple product verticals.',
+    ],
+    impact: 'Prototype evolved into a production system; automation platform improvements boosted test throughput across verticals.',
+    technologies: ['Python', 'LLMs', 'Playwright', 'Prompt Engineering', 'REST APIs'],
   },
 ]
 

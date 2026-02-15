@@ -10,9 +10,9 @@ import { useInView } from 'react-intersection-observer'
 const MotionVStack = motion(VStack)
 
 const stats = [
-  { value: '8.5', label: 'CGPA', sublabel: '' },
+  { value: '1+', label: 'Years Experience', sublabel: '' },
   { value: '3+', label: 'Major Projects', sublabel: '' },
-  { value: '2025', label: 'Graduation', sublabel: '' },
+  { value: '1', label: 'Publication', sublabel: '' },
 ]
 
 export default function QuickStats() {

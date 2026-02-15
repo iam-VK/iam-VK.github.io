@@ -11,7 +11,7 @@ import {
   Flex,
   IconButton,
 } from '@chakra-ui/react'
-import { FaGithub, FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope, FaArrowDown, FaFileDownload } from 'react-icons/fa'
 import { SITE_CONFIG } from '../config'
 import { motion } from 'framer-motion'
 
@@ -138,11 +138,11 @@ export default function Hero() {
             color={mutedColor}
             lineHeight={1.7}
           >
-            A backend developer & AI enthusiast turning complex systems into{' '}
+            Software Engineer building production AI pipelines and{' '}
             <Box as="span" fontFamily="heading" fontStyle="italic" fontWeight="600" color={textColor}>
-              elegant, scalable solutions
+              scalable backend systems
             </Box>
-            . Currently building intelligent automation at Ramco Systems.
+            . Currently an SDE I at Ramco Systems.
           </Text>
         </MotionBox>
 
@@ -175,6 +175,17 @@ export default function Hero() {
             _hover={{ textDecoration: 'none' }}
           >
             View GitHub
+          </Button>
+          <Button
+            as={Link}
+            href={SITE_CONFIG.resumeUrl}
+            isExternal
+            variant="outline"
+            size="lg"
+            leftIcon={<FaFileDownload />}
+            _hover={{ textDecoration: 'none' }}
+          >
+            Resume
           </Button>
         </MotionFlex>
 

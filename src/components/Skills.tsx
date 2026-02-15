@@ -5,171 +5,149 @@ import {
   Text,
   VStack,
   HStack,
-  Badge,
-  Flex,
   Icon,
   useColorModeValue,
-  SimpleGrid,
-  Progress,
+  Wrap,
+  WrapItem,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import {
   FaPython,
-  FaJava,
-  FaReact,
   FaDocker,
   FaGitAlt,
-  FaDatabase,
   FaAws,
   FaBrain,
   FaRobot,
-  FaSearch,
   FaCode,
-  FaCogs,
+  FaServer,
+  FaLinux,
+  FaComments,
 } from 'react-icons/fa'
 import {
-  SiTypescript,
   SiFastapi,
-  SiFlask,
   SiMongodb,
   SiElasticsearch,
   SiPostgresql,
-  SiLangchain,
+  SiMysql,
+  SiApachekafka,
+  SiNginx,
+  SiJavascript,
+  SiHuggingface,
 } from 'react-icons/si'
 
 const MotionBox = motion(Box)
 
-interface Skill {
+interface SkillItem {
   name: string
   icon: any
-  level: number
-  proficiency: string
-  color: string
+  color: string // brand color for the icon
 }
 
-const skillCategories = [
+interface SkillCategory {
+  label: string
+  skills: SkillItem[]
+}
+
+const categories: SkillCategory[] = [
   {
-    title: 'Languages',
+    label: 'Backend',
     skills: [
-      { name: 'Python', icon: FaPython, level: 90, proficiency: 'Expert', color: 'accent' },
-      { name: 'Java', icon: FaJava, level: 80, proficiency: 'Advanced', color: 'warm' },
-      { name: 'TypeScript', icon: SiTypescript, level: 75, proficiency: 'Advanced', color: 'accent' },
+      { name: 'Python', icon: FaPython, color: '#3776AB' },
+      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
+      { name: 'FastAPI', icon: SiFastapi, color: '#009688' },
+      { name: 'RESTful APIs', icon: FaServer, color: '#6C63FF' },
     ],
   },
   {
-    title: 'Frameworks',
+    label: 'Data',
     skills: [
-      { name: 'FastAPI', icon: SiFastapi, level: 88, proficiency: 'Expert', color: 'emerald' },
-      { name: 'Flask', icon: SiFlask, level: 82, proficiency: 'Advanced', color: 'violet' },
-      { name: 'React', icon: FaReact, level: 72, proficiency: 'Advanced', color: 'accent' },
+      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
+      { name: 'PostgreSQL', icon: SiPostgresql, color: '#336791' },
+      { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
+      { name: 'Elasticsearch', icon: SiElasticsearch, color: '#FEC514' },
+      { name: 'Vector DBs', icon: FaBrain, color: '#A855F7' },
+      { name: 'Apache Kafka', icon: SiApachekafka, color: '#231F20' },
     ],
   },
   {
-    title: 'AI & ML',
+    label: 'AI',
     skills: [
-      { name: 'LangChain', icon: SiLangchain, level: 85, proficiency: 'Expert', color: 'emerald' },
-      { name: 'NLP', icon: FaBrain, level: 78, proficiency: 'Advanced', color: 'violet' },
-      { name: 'Computer Vision', icon: FaSearch, level: 70, proficiency: 'Intermediate', color: 'warm' },
+      { name: 'LLMs', icon: FaRobot, color: '#10B981' },
+      { name: 'RAG', icon: FaCode, color: '#8B5CF6' },
+      { name: 'HuggingFace', icon: SiHuggingface, color: '#FFD21E' },
+      { name: 'Conversational AI', icon: FaComments, color: '#06B6D4' },
+      { name: 'AWS Bedrock', icon: FaAws, color: '#FF9900' },
     ],
   },
   {
-    title: 'Infrastructure',
+    label: 'DevOps',
     skills: [
-      { name: 'Docker', icon: FaDocker, level: 80, proficiency: 'Advanced', color: 'accent' },
-      { name: 'PostgreSQL', icon: SiPostgresql, level: 82, proficiency: 'Advanced', color: 'accent' },
-      { name: 'Elasticsearch', icon: SiElasticsearch, level: 75, proficiency: 'Advanced', color: 'warm' },
+      { name: 'Docker', icon: FaDocker, color: '#2496ED' },
+      { name: 'Git', icon: FaGitAlt, color: '#F05032' },
+      { name: 'Linux', icon: FaLinux, color: '#FCC624' },
+      { name: 'NGINX', icon: SiNginx, color: '#009639' },
     ],
   },
 ]
 
-const proficiencyColors: Record<string, { bg: string; text: string }> = {
-  Expert: { bg: 'emerald', text: 'emerald.700' },
-  Advanced: { bg: 'accent', text: 'accent.700' },
-  Intermediate: { bg: 'warm', text: 'warm.700' },
-}
-
-function SkillCard({ skill, index }: { skill: Skill; index: number }) {
-  const cardBg = useColorModeValue('white', 'whiteAlpha.50')
-  const cardBorder = useColorModeValue('brand.200', 'whiteAlpha.100')
-  const textColor = useColorModeValue('text.primary', 'text.inverse')
-  const mutedColor = useColorModeValue('text.secondary', 'text.muted')
-  const profColor = proficiencyColors[skill.proficiency] || proficiencyColors.Intermediate
+function SkillPill({ skill, isDark }: { skill: SkillItem; isDark: boolean }) {
+  // Kafka's icon color is nearly black — make it visible in dark mode
+  const iconColor = isDark && skill.color === '#231F20' ? '#999' : skill.color
 
   return (
     <HStack
-      p={4}
-      bg={cardBg}
-      borderRadius="xl"
+      px={4}
+      py={2.5}
+      borderRadius="full"
+      bg={isDark ? 'whiteAlpha.50' : 'white'}
       border="1px solid"
-      borderColor={cardBorder}
-      spacing={4}
+      borderColor={isDark ? 'whiteAlpha.100' : 'gray.200'}
+      boxShadow={isDark ? 'none' : '0 1px 3px rgba(0,0,0,0.04)'}
+      spacing={2.5}
+      cursor="default"
+      role="group"
       _hover={{
-        transform: 'translateY(-2px)',
-        boxShadow: useColorModeValue(
-          '0 8px 24px rgba(0,0,0,0.06)',
-          '0 8px 24px rgba(0,0,0,0.3)'
-        ),
-        borderColor: useColorModeValue('brand.300', 'whiteAlpha.200'),
+        bg: isDark ? 'whiteAlpha.100' : 'white',
+        borderColor: isDark ? `${skill.color}60` : `${skill.color}50`,
+        transform: 'translateY(-3px)',
+        boxShadow: isDark
+          ? `0 8px 24px ${skill.color}20`
+          : `0 8px 24px ${skill.color}18, 0 2px 8px rgba(0,0,0,0.06)`,
       }}
+      transition="all 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
     >
-      <Box
-        w={10}
-        h={10}
-        borderRadius="lg"
-        bg={useColorModeValue(`${skill.color}.50`, 'whiteAlpha.100')}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
+      <Icon
+        as={skill.icon}
+        w={5}
+        h={5}
+        color={iconColor}
         flexShrink={0}
+      />
+      <Text
+        fontSize="sm"
+        fontWeight="600"
+        color={isDark ? 'whiteAlpha.900' : 'gray.700'}
+        whiteSpace="nowrap"
+        lineHeight={1}
       >
-        <Icon as={skill.icon} w={5} h={5} color={`${skill.color}.500`} />
-      </Box>
-      <VStack align="start" spacing={1} flex={1} minW={0}>
-        <HStack justify="space-between" w="full">
-          <Text fontSize="sm" fontWeight="600" color={textColor} noOfLines={1}>
-            {skill.name}
-          </Text>
-          <Badge
-            borderRadius="full"
-            px={2}
-            py={0.5}
-            fontSize="2xs"
-            fontWeight="600"
-            bg={useColorModeValue(`${profColor.bg}.50`, 'whiteAlpha.100')}
-            color={useColorModeValue(profColor.text, `${profColor.bg}.300`)}
-            minW="fit-content"
-          >
-            {skill.proficiency}
-          </Badge>
-        </HStack>
-        <Progress
-          value={skill.level}
-          size="xs"
-          w="full"
-          borderRadius="full"
-          bg={useColorModeValue('brand.100', 'whiteAlpha.100')}
-          sx={{
-            '& > div': {
-              bg: `${skill.color}.500`,
-              borderRadius: 'full',
-            },
-          }}
-        />
-      </VStack>
+        {skill.name}
+      </Text>
     </HStack>
   )
 }
 
 export default function Skills() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-  const textColor = useColorModeValue('text.primary', 'text.inverse')
-  const mutedColor = useColorModeValue('text.secondary', 'text.muted')
+  const textColor = useColorModeValue('gray.900', 'white')
+  const mutedColor = useColorModeValue('gray.500', 'whiteAlpha.500')
+  const labelColor = useColorModeValue('gray.400', 'whiteAlpha.400')
+  const isDark = useColorModeValue(false, true)
 
   return (
     <Box id="skills" py={{ base: 20, md: 28 }} ref={ref}>
-      <Container maxW="container.xl">
-        <VStack spacing={{ base: 10, md: 14 }} align="stretch">
+      <Container maxW="container.lg">
+        <VStack spacing={{ base: 12, md: 16 }} align="stretch">
 
           {/* Header */}
           <MotionBox
@@ -187,28 +165,48 @@ export default function Skills() {
             </Heading>
           </MotionBox>
 
-          {/* Skill Categories */}
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
-            {skillCategories.map((category, catIndex) => (
+          {/* Skill categories */}
+          <VStack spacing={{ base: 8, md: 10 }} align="stretch">
+            {categories.map((cat, catIndex) => (
               <MotionBox
-                key={category.title}
+                key={cat.label}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: catIndex * 0.1 }}
+                transition={{ duration: 0.5, delay: 0.1 + catIndex * 0.1 }}
               >
-                <VStack align="start" spacing={4}>
-                  <Text fontSize="sm" fontWeight="700" color={mutedColor} textTransform="uppercase" letterSpacing="0.1em">
-                    {category.title}
+                <HStack
+                  align="start"
+                  spacing={0}
+                  flexDir={{ base: 'column', md: 'row' }}
+                  gap={{ base: 4, md: 0 }}
+                >
+                  {/* Category label */}
+                  <Text
+                    fontSize="xs"
+                    fontWeight="600"
+                    color={labelColor}
+                    textTransform="uppercase"
+                    letterSpacing="0.12em"
+                    minW={{ base: 'auto', md: '100px' }}
+                    mr={{ base: 0, md: 6 }}
+                    pt={2.5}
+                    flexShrink={0}
+                  >
+                    {cat.label}
                   </Text>
-                  <VStack spacing={3} w="full">
-                    {category.skills.map((skill, skillIndex) => (
-                      <SkillCard key={skill.name} skill={skill} index={skillIndex} />
+
+                  {/* Skill pills */}
+                  <Wrap spacing={3}>
+                    {cat.skills.map((skill) => (
+                      <WrapItem key={skill.name}>
+                        <SkillPill skill={skill} isDark={isDark} />
+                      </WrapItem>
                     ))}
-                  </VStack>
-                </VStack>
+                  </Wrap>
+                </HStack>
               </MotionBox>
             ))}
-          </SimpleGrid>
+          </VStack>
         </VStack>
       </Container>
     </Box>
