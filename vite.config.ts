@@ -7,7 +7,7 @@ export default defineConfig({
   // GitHub Pages configuration - using root since /docs is served as root
   base: '/',
   build: {
-    outDir: 'docs',
+    outDir: 'dist',
     sourcemap: false,
   },
   server: {

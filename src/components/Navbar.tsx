@@ -90,7 +90,7 @@ export default function Navbar() {
             letterSpacing="-0.01em"
             whiteSpace="nowrap"
           >
-            VK
+            Vk
           </Box>
         </ScrollLink>
 

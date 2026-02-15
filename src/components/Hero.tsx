@@ -186,7 +186,7 @@ export default function Hero() {
           <HStack spacing={4}>
             {[
               { icon: FaGithub, href: 'https://github.com/iam-VK', label: 'GitHub' },
-              { icon: FaLinkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
+              { icon: FaLinkedin, href: 'https://linkedin.com/in/vishwakumar-s', label: 'LinkedIn' },
               { icon: FaEnvelope, href: 'mailto:vishwakumar.petit@gmail.com', label: 'Email' },
             ].map((social) => (
               <IconButton

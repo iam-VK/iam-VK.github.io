@@ -28,7 +28,7 @@ export default function Footer() {
           <HStack spacing={3}>
             {[
               { icon: FaGithub, href: 'https://github.com/iam-VK', label: 'GitHub' },
-              { icon: FaLinkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
+              { icon: FaLinkedin, href: 'https://linkedin.com/in/vishwakumar-s', label: 'LinkedIn' },
               { icon: FaEnvelope, href: 'mailto:vishwakumar.petit@gmail.com', label: 'Email' },
             ].map((social) => (
               <IconButton
@@ -51,7 +51,7 @@ export default function Footer() {
           <Text fontSize="sm" color={mutedColor} textAlign="center">
             Built with{' '}
             <Icon as={FaHeart} w={3} h={3} color="warm.500" mx={1} display="inline" verticalAlign="middle" />
-            {' '}by Vishwa Kumar S · {new Date().getFullYear()}
+            {' '}by Vishwa Kumar · {new Date().getFullYear()}
           </Text>
         </VStack>
       </Container>
